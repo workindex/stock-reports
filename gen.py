@@ -67,10 +67,15 @@ def _verdict_cell(verdict: str, reason: str) -> str:
     return f"{verdict} ({reason})" if reason else verdict
 
 
+def _company_name(title: str) -> str:
+    """워치리스트 title('NVIDIA 관찰 종목')에서 기업명만 추출."""
+    return re.sub(r"\s*관찰\s*종목\s*$", "", title).strip()
+
+
 # --- 소스 → 출력 복사 + 메타 수집 ---
 
-def _collect_watchlist() -> list[tuple[str, str, str]]:
-    """type=watchlist 만 복사하고 (ticker, market, fname) 리스트 반환."""
+def _collect_watchlist() -> list[tuple[str, str, str, str]]:
+    """type=watchlist 만 복사하고 (ticker, market, name, fname) 리스트 반환."""
     _reset_dir(OUT_WL)
     entries = []
     for md in sorted(SRC_WL.glob("*.md")):
@@ -78,7 +83,8 @@ def _collect_watchlist() -> list[tuple[str, str, str]]:
         if fm.get("type") != "watchlist":
             continue
         shutil.copy(md, OUT_WL / md.name)
-        entries.append((fm.get("ticker", md.stem), fm.get("market", ""), md.name))
+        entries.append((fm.get("ticker", md.stem), fm.get("market", ""),
+                        _company_name(fm.get("title", "")), md.name))
     return entries
 
 
@@ -124,7 +130,7 @@ def _scan_alerts() -> list[dict]:
 
 # --- 페이지 빌더 ---
 
-def _dashboard(entries, snaps, alerts) -> str:
+def _dashboard(entries, snaps, alerts, names) -> str:
     lines = [
         "# 주식 분석 리포트",
         "",
@@ -146,12 +152,12 @@ def _dashboard(entries, snaps, alerts) -> str:
         lines += [
             "## 최근 분석",
             "",
-            "| 종목 | 분석일 | 판정 | Stage | TT |",
-            "|------|--------|------|-------|----|",
+            "| 종목 | 기업명 | 분석일 | 판정 | Stage | TT |",
+            "|------|--------|--------|------|-------|----|",
         ]
         for s in snaps[:5]:
             lines.append(
-                f"| {s['ticker']} | {s['created']} | {_verdict_cell(s['verdict'], s['reason'])} "
+                f"| {s['ticker']} | {names.get(s['ticker'], '')} | {s['created']} | {_verdict_cell(s['verdict'], s['reason'])} "
                 f"| {s['stage']} | {s['tt']}/8 |"
             )
         lines += ["", "[→ 전체 스냅샷](snapshots/index.md)", ""]
@@ -165,15 +171,15 @@ def _watchlist_index(entries) -> str:
         "",
         "모니터링 대상 종목. 30분 폴링으로 상태 변화 시 [알림](../alerts/index.md)이 발송됩니다.",
         "",
-        "| 종목 | 시장 | 상세 |",
-        "|------|------|------|",
+        "| 종목 | 기업명 | 시장 | 상세 |",
+        "|------|--------|------|------|",
     ]
-    for ticker, market, fname in sorted(entries):
-        lines.append(f"| **{ticker}** | {market} | [{fname}]({fname}) |")
+    for ticker, market, name, fname in sorted(entries):
+        lines.append(f"| **{ticker}** | {name} | {market} | [{fname}]({fname}) |")
     return "\n".join(lines) + "\n"
 
 
-def _snapshots_index(snaps) -> str:
+def _snapshots_index(snaps, names) -> str:
     lines = [
         "# 분석 스냅샷",
         "",
@@ -181,18 +187,18 @@ def _snapshots_index(snaps) -> str:
         "**매수후보**(Stage 2 + TT 8/8) · **매수관찰**(Stage 2 + TT 6~7) · "
         "**매수불가**(사유: 과열·시장국면·하락국면·천장권·기준미달).",
         "",
-        "| 종목 | 분석일 | 판정 | Stage | TT | 상세 |",
-        "|------|--------|------|-------|----|----|",
+        "| 종목 | 기업명 | 분석일 | 판정 | Stage | TT | 상세 |",
+        "|------|--------|--------|------|-------|----|----|",
     ]
     for s in snaps:
         lines.append(
-            f"| {s['ticker']} | {s['created']} | {_verdict_cell(s['verdict'], s['reason'])} "
+            f"| {s['ticker']} | {names.get(s['ticker'], '')} | {s['created']} | {_verdict_cell(s['verdict'], s['reason'])} "
             f"| {s['stage']} | {s['tt']}/8 | [{s['fname']}]({s['fname']}) |"
         )
     return "\n".join(lines) + "\n"
 
 
-def _alerts_index(alerts) -> str:
+def _alerts_index(alerts, names) -> str:
     lines = [
         "# 알림",
         "",
@@ -206,9 +212,9 @@ def _alerts_index(alerts) -> str:
             "    관찰 종목이 매수·매도·손절 조건을 충족하면 이곳에 자동으로 기록됩니다.",
         ]
         return "\n".join(lines) + "\n"
-    lines += ["| 발생일 | 종목 | 유형 | 상세 |", "|--------|------|------|------|"]
+    lines += ["| 발생일 | 종목 | 기업명 | 유형 | 상세 |", "|--------|------|--------|------|------|"]
     for a in alerts:
-        lines.append(f"| {a['created']} | {a['ticker']} | {a['alert']} | [{a['fname']}]({a['fname']}) |")
+        lines.append(f"| {a['created']} | {a['ticker']} | {names.get(a['ticker'], '')} | {a['alert']} | [{a['fname']}]({a['fname']}) |")
     return "\n".join(lines) + "\n"
 
 
@@ -218,11 +224,12 @@ def main():
     entries = _collect_watchlist()
     snaps   = _collect_snapshots()
     alerts  = _scan_alerts()
+    names   = {ticker: name for ticker, _market, name, _fname in entries}
 
-    (OUT / "index.md").write_text(_dashboard(entries, snaps, alerts), encoding="utf-8")
+    (OUT / "index.md").write_text(_dashboard(entries, snaps, alerts, names), encoding="utf-8")
     (OUT_WL / "index.md").write_text(_watchlist_index(entries), encoding="utf-8")
-    (OUT_SNAP / "index.md").write_text(_snapshots_index(snaps), encoding="utf-8")
-    (OUT_ALERT / "index.md").write_text(_alerts_index(alerts), encoding="utf-8")
+    (OUT_SNAP / "index.md").write_text(_snapshots_index(snaps, names), encoding="utf-8")
+    (OUT_ALERT / "index.md").write_text(_alerts_index(alerts, names), encoding="utf-8")
 
     print(f"생성 완료: 관찰 {len(entries)}개 · 스냅샷 {len(snaps)}건 · 알림 {len(alerts)}건")
 
