@@ -2,6 +2,7 @@ site_name: 주식 분석 리포트
 site_description: Weinstein·Minervini·Turtle 프레임워크 기반 종목 분석 (투자 권유 아님)
 theme:
   name: material
+  custom_dir: overrides
   language: ko
   palette:
     - media: "(prefers-color-scheme: light)"
