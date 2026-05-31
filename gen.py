@@ -153,6 +153,21 @@ def _collect_snapshots() -> list[dict]:
     return snaps
 
 
+def _latest_per_ticker(snaps: list[dict]) -> list[dict]:
+    """종목당 최신 스냅샷 1건만 반환.
+
+    snaps은 날짜 내림차순 정렬 상태여야 한다 (_collect_snapshots 반환값).
+    파일은 모두 복사되므로 히스토리 URL은 그대로 유지된다.
+    """
+    seen: set[str] = set()
+    result = []
+    for s in snaps:
+        if s["ticker"] not in seen:
+            seen.add(s["ticker"])
+            result.append(s)
+    return result
+
+
 def _scan_alerts() -> list[dict]:
     """alerts/ 의 알림 페이지(uid.md) 메타를 최신순으로 반환. (삭제하지 않음)"""
     OUT_ALERT.mkdir(parents=True, exist_ok=True)
@@ -301,16 +316,17 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
 
     entries = _collect_watchlist()
-    snaps   = _collect_snapshots()
+    snaps   = _collect_snapshots()          # 전체 히스토리 (파일 복사 완료)
+    latest  = _latest_per_ticker(snaps)     # 인덱스·대시보드용: 종목당 최신 1건
     alerts  = _scan_alerts()
     names   = {ticker: name for ticker, _market, name, _fname in entries}
 
-    (OUT / "index.md").write_text(_dashboard(entries, snaps, alerts, names), encoding="utf-8")
+    (OUT / "index.md").write_text(_dashboard(entries, latest, alerts, names), encoding="utf-8")
     (OUT_WL / "index.md").write_text(_watchlist_index(entries), encoding="utf-8")
-    (OUT_SNAP / "index.md").write_text(_snapshots_index(snaps, names), encoding="utf-8")
+    (OUT_SNAP / "index.md").write_text(_snapshots_index(latest, names), encoding="utf-8")
     (OUT_ALERT / "index.md").write_text(_alerts_index(alerts, names), encoding="utf-8")
 
-    print(f"생성 완료: 관찰 {len(entries)}개 · 스냅샷 {len(snaps)}건 · 알림 {len(alerts)}건")
+    print(f"생성 완료: 관찰 {len(entries)}개 · 스냅샷 {len(latest)}종목({len(snaps)}건) · 알림 {len(alerts)}건")
 
 
 if __name__ == "__main__":

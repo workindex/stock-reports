@@ -40,14 +40,3 @@
 | [NVDA](NVDA-2026-05-31.md) | [NVIDIA](NVDA-2026-05-31.md) | 2026-05-31 | <span class="verdict verdict-watch">매수관찰</span> | 2 | 7/8 |
 | [SOFI](SOFI-2026-05-31.md) | [SoFi Technologies](SOFI-2026-05-31.md) | 2026-05-31 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(하락국면)</span> | 4 | 2/8 |
 | [VST](VST-2026-05-31.md) | [Vistra Corp](VST-2026-05-31.md) | 2026-05-31 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(하락국면)</span> | 4 | 1/8 |
-| [AVGO](AVGO-20260530.md) | [Broadcom](AVGO-20260530.md) | 2026-05-30 | <span class="verdict verdict-watch">매수관찰</span> | 2 | 7/8 |
-| [CAT](CAT-20260530.md) | [Caterpillar](CAT-20260530.md) | 2026-05-30 | <span class="verdict verdict-cand">매수후보</span> | 2 | 8/8 |
-| [CRCL](CRCL-20260530.md) | [Circle Internet Group](CRCL-20260530.md) | 2026-05-30 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(기준미달)</span> | 1 | 4/8 |
-| [GOOGL](GOOGL-20260530.md) | [Alphabet](GOOGL-20260530.md) | 2026-05-30 | <span class="verdict verdict-watch">매수관찰</span> | 2 | 7/8 |
-| [META](META-20260530.md) | [META](META-20260530.md) | 2026-05-30 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(하락국면)</span> | 4 | 2/8 |
-| [NVDA](NVDA-20260530.md) | [NVIDIA](NVDA-20260530.md) | 2026-05-30 | <span class="verdict verdict-watch">매수관찰</span> | 2 | 7/8 |
-| [009150](009150-삼성전기-20260529.md) | [삼성전기](009150-삼성전기-20260529.md) | 2026-05-29 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(과열)</span> | 2 | 8/8 |
-| [329180](329180-현대중공업-20260529.md) | [HD현대중공업](329180-현대중공업-20260529.md) | 2026-05-29 | <span class="verdict verdict-watch">매수관찰</span> | 2 | 7/8 |
-| [BMNR](BMNR-20260529.md) | [Bitmine Immersion](BMNR-20260529.md) | 2026-05-29 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(하락국면)</span> | 4 | 2/8 |
-| [META](META-20260529.md) | [META](META-20260529.md) | 2026-05-29 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(천장권)</span> | 3 | 2/8 |
-| [SOFI](SOFI-20260529.md) | [SoFi Technologies](SOFI-20260529.md) | 2026-05-29 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(하락국면)</span> | 4 | 2/8 |
