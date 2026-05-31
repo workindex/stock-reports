@@ -38,3 +38,14 @@ markdown_extensions:
 
 nav:
   - 홈: index.md
+  - 관찰 종목: watchlist/index.md
+  - 분석 스냅샷: snapshots/index.md
+  - 알림: alerts/index.md
+
+# 상세 페이지(watchlist/*, snapshots/*, alerts/{uid})는 nav에 직접 넣지 않고
+# 각 인덱스에서 링크한다 — '누락' 경고를 끈다.
+validation:
+  nav:
+    omitted_files: ignore
+  links:
+    not_found: warn

@@ -1,3 +1,6 @@
 # MkDocs 빌드 출력 (CI에서 생성)
 _site/
 site/
+
+# gen.py 실행 부산물
+__pycache__/
