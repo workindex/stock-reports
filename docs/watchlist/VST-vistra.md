@@ -13,6 +13,7 @@ tags:
   - ai-infrastructure
   - leopold
 status: watching
+comments: true
 related:
   - "[[analysis-template]]"
 ---

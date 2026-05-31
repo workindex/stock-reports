@@ -10,6 +10,7 @@ tags:
   - watchlist
   - meta
 status: watching
+comments: true
 related:
   - "[[META-20260529]]"
   - "[[analysis-template]]"

@@ -12,6 +12,7 @@ tags:
   - vcp
   - squeeze
 status: watching
+comments: true
 related:
   - "[[GOOGL-20260530]]"
   - "[[analysis-template]]"

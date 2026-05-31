@@ -11,6 +11,7 @@ tags:
   - AVGO
   - semiconductor
 status: watching
+comments: true
 related:
   - "[[analysis-template]]"
 ---

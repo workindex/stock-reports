@@ -11,6 +11,7 @@ tags:
   - SOFI
   - squeeze
 status: watching
+comments: true
 related:
   - "[[SOFI-20260529]]"
   - "[[analysis-template]]"

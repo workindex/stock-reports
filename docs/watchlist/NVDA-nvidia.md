@@ -12,6 +12,7 @@ tags:
   - semiconductor
   - ai
 status: watching
+comments: true
 related:
   - "[[analysis-template]]"
 ---

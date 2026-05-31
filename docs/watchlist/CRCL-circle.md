@@ -12,6 +12,7 @@ tags:
   - stablecoin
   - usdc
 status: watching
+comments: true
 related:
   - "[[CRCL-20260530]]"
   - "[[analysis-template]]"

@@ -11,6 +11,7 @@ tags:
   - BMNR
   - eth-treasury
 status: watching
+comments: true
 theme: eth-treasury
 related:
   - "[[BMNR-20260529]]"

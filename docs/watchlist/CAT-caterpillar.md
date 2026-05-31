@@ -11,6 +11,7 @@ tags:
   - CAT
   - industrial
 status: watching
+comments: true
 related:
   - "[[analysis-template]]"
 ---
