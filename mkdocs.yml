@@ -36,6 +36,13 @@ markdown_extensions:
   - attr_list
   - md_in_html
 
+extra_css:
+  - stylesheets/verdict.css        # 판정 색상 배지
+
+extra_javascript:
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js   # 표 헤더 클릭 정렬
+  - javascripts/tablesort.js
+
 nav:
   - 홈: index.md
   - 관찰 종목: watchlist/index.md

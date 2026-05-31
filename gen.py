@@ -62,9 +62,20 @@ def _reset_dir(p: Path):
     p.mkdir(parents=True)
 
 
+_VERDICT_KIND = {"매수후보": "cand", "매수관찰": "watch", "매수불가": "nobuy"}
+
+
 def _verdict_cell(verdict: str, reason: str) -> str:
-    """'매수불가 (과열)' 또는 '매수후보' 형태의 판정 셀."""
-    return f"{verdict} ({reason})" if reason else verdict
+    """판정을 색상 배지 HTML로 렌더 (사유는 옆에 옅은 글씨).
+
+    md_in_html 확장으로 표 셀 내 인라인 HTML이 렌더된다. 정렬(tablesort)은
+    셀 텍스트 기준이라 같은 판정끼리 묶인다.
+    """
+    kind = _VERDICT_KIND.get(verdict, "nobuy")
+    badge = f'<span class="verdict verdict-{kind}">{verdict}</span>'
+    if reason:
+        return f'{badge} <span class="verdict-reason">({reason})</span>'
+    return badge
 
 
 def _company_name(title: str) -> str:

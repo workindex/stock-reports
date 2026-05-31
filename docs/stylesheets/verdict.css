@@ -1,0 +1,26 @@
+/* 판정 색상 배지 — 분석 스냅샷·홈 최근분석 표에서 판정을 한눈에 구분 */
+.verdict {
+  display: inline-block;
+  padding: 0.12rem 0.5rem;
+  border-radius: 1rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+  color: #fff;
+}
+.verdict-cand  { background: #2e7d32; }  /* 매수후보 — 초록(강력) */
+.verdict-watch { background: #0277bd; }  /* 매수관찰 — 파랑(관망) */
+.verdict-nobuy { background: #607d8b; }  /* 매수불가 — 회색(중립) */
+
+/* 매수불가 사유 — 배지 옆 옅은 글씨 */
+.verdict-reason {
+  font-size: 0.78rem;
+  color: var(--md-default-fg-color--light);
+  white-space: nowrap;
+}
+
+/* 정렬 가능한 표 헤더에 커서·표시 */
+table th[role="columnheader"]:not([data-sort-method="none"]) {
+  cursor: pointer;
+}
