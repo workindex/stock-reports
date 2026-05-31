@@ -2,6 +2,21 @@
 
 특정 시점의 **판정 기록**(최신순). 판정 어휘 — **매수후보**(Stage 2 + TT 8/8) · **매수관찰**(Stage 2 + TT 6~7) · **매수불가**(사유: 과열·시장국면·하락국면·천장권·기준미달).
 
+<div class="snap-filters">
+<span class="sf-label">판정</span>
+<button class="sf active" data-f="verdict" data-v="">전체</button>
+<button class="sf" data-f="verdict" data-v="cand">매수후보</button>
+<button class="sf" data-f="verdict" data-v="watch">매수관찰</button>
+<button class="sf" data-f="verdict" data-v="nobuy">매수불가</button>
+<span class="sf-sep">│</span>
+<span class="sf-label">Stage</span>
+<button class="sf active" data-f="stage" data-v="">전체</button>
+<button class="sf" data-f="stage" data-v="1">1</button>
+<button class="sf" data-f="stage" data-v="2">2</button>
+<button class="sf" data-f="stage" data-v="3">3</button>
+<button class="sf" data-f="stage" data-v="4">4</button>
+</div>
+
 | 종목 | 기업명 | 분석일 | 판정 | Stage | TT |
 |------|--------|--------|------|-------|----|
 | [009150](009150-2026-05-31.md) | [삼성전기](009150-2026-05-31.md) | 2026-05-31 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(과열)</span> | 2 | 8/8 |

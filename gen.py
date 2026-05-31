@@ -38,6 +38,23 @@ DISCLAIMER = """\
     수치는 분석 시점의 yfinance 데이터 기준이며 지연·오류가 있을 수 있습니다.
 """
 
+SNAP_FILTERS = """\
+<div class="snap-filters">
+<span class="sf-label">판정</span>
+<button class="sf active" data-f="verdict" data-v="">전체</button>
+<button class="sf" data-f="verdict" data-v="cand">매수후보</button>
+<button class="sf" data-f="verdict" data-v="watch">매수관찰</button>
+<button class="sf" data-f="verdict" data-v="nobuy">매수불가</button>
+<span class="sf-sep">│</span>
+<span class="sf-label">Stage</span>
+<button class="sf active" data-f="stage" data-v="">전체</button>
+<button class="sf" data-f="stage" data-v="1">1</button>
+<button class="sf" data-f="stage" data-v="2">2</button>
+<button class="sf" data-f="stage" data-v="3">3</button>
+<button class="sf" data-f="stage" data-v="4">4</button>
+</div>
+"""
+
 
 def _frontmatter(text: str) -> dict:
     """YAML 프론트매터에서 **최상위 단일 줄 스칼라**만 추출(들여쓰기·리스트 줄 무시).
@@ -173,6 +190,38 @@ def _dashboard(entries, snaps, alerts, names) -> str:
                 f"| {s['stage']} | {s['tt']}/8 |"
             )
         lines += ["", "[→ 전체 스냅샷](snapshots/index.md)", ""]
+    lines += [
+        "## 용어 설명",
+        "",
+        '??? info "📘 Stage (Weinstein 스테이지)란?"',
+        "    주가 생명주기를 4단계로 분류하는 Stan Weinstein의 프레임워크. **30주 이동평균(≈150일 MA)** 방향과 가격 위치로 판단합니다.",
+        "",
+        "    | Stage | 명칭 | MA 방향 | 가격 위치 | 대응 |",
+        "    |-------|------|---------|---------|------|",
+        "    | **1** | 바닥 다지기 | 수평 | MA 위아래 | 대기 |",
+        "    | **2** | 상승 국면 | 우상향 | MA 위 | **매수 구간** |",
+        "    | **3** | 천장 분배 | 수평화 | MA 근처 | 매도 준비 |",
+        "    | **4** | 하락 국면 | 우하향 | MA 아래 | 절대 금지 |",
+        "",
+        "    이 시스템은 **Stage 2** 종목만 매수 후보로 분류합니다.",
+        "",
+        '??? info "📘 TT (Trend Template — Minervini 8조건)란?"',
+        "    Mark Minervini가 정의한 상승 구조 체크리스트. **충족 조건 수 / 8** 로 점수화.",
+        "",
+        "    | # | 조건 |",
+        "    |---|------|",
+        "    | 1 | 현재가 > 150일 MA, 200일 MA |",
+        "    | 2 | 150일 MA > 200일 MA |",
+        "    | 3 | 200일 MA 최소 1개월째 상승 중 |",
+        "    | 4 | 50일 MA > 150일 MA, 200일 MA |",
+        "    | 5 | 현재가 > 50일 MA |",
+        "    | 6 | 현재가 ≥ 52주 저점 × 1.25 (+25% 이상) |",
+        "    | 7 | 현재가 ≥ 52주 고점 × 0.75 (-25% 이내) |",
+        "    | 8 | RS Rating(상대강도 등급) ≥ 70 |",
+        "",
+        "    **8/8**: 매수후보 조건 충족 · **6~7/8**: 매수관찰 · **5/8 이하**: 기준미달",
+        "",
+    ]
     lines += ["---", f"_생성: {date.today()} · 프레임워크 자동 판정_"]
     return "\n".join(lines) + "\n"
 
@@ -199,6 +248,7 @@ def _snapshots_index(snaps, names) -> str:
         "**매수후보**(Stage 2 + TT 8/8) · **매수관찰**(Stage 2 + TT 6~7) · "
         "**매수불가**(사유: 과열·시장국면·하락국면·천장권·기준미달).",
         "",
+        SNAP_FILTERS,
         "| 종목 | 기업명 | 분석일 | 판정 | Stage | TT |",
         "|------|--------|--------|------|-------|----|",
     ]

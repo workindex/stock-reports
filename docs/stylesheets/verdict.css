@@ -24,3 +24,49 @@
 table th[role="columnheader"]:not([data-sort-method="none"]) {
   cursor: pointer;
 }
+
+/* 스냅샷 필터 바 */
+.snap-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.6rem;
+  padding: 0.55rem 0.8rem;
+  margin-bottom: 0.75rem;
+  background: var(--md-code-bg-color);
+  border-radius: 0.4rem;
+}
+
+.sf-label {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--md-default-fg-color--light);
+}
+
+.sf-sep {
+  color: var(--md-default-fg-color--lighter);
+}
+
+.sf {
+  padding: 0.15rem 0.6rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 1rem;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.76rem;
+  color: var(--md-default-fg-color);
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+  line-height: 1.6;
+}
+
+.sf:hover {
+  border-color: var(--md-primary-fg-color);
+  color: var(--md-primary-fg-color);
+}
+
+.sf.active {
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  border-color: var(--md-primary-fg-color);
+}
