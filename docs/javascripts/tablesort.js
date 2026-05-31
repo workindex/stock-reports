@@ -1,30 +1,39 @@
-// MkDocs Material — 표 정렬 + 스냅샷 필터. instant navigation 대응(document$).
+// MkDocs Material — 표 정렬 + 필터. instant navigation 대응(document$).
 document$.subscribe(function () {
   var tables = document.querySelectorAll("article table:not([class])");
   tables.forEach(function (table) {
     new Tablesort(table);
   });
 
-  // 스냅샷 인덱스 페이지에서만 동작 (판정·Stage AND 필터)
-  var filterState = { verdict: '', stage: '' };
+  // 필터 상태: verdict/stage → 스냅샷, market → 워치리스트
+  var filterState = { verdict: '', stage: '', market: '' };
 
-  function applySnapFilters() {
+  function applyFilters() {
     var table = document.querySelector('article table');
     if (!table) return;
     table.querySelectorAll('tbody tr').forEach(function (row) {
       var cells = row.querySelectorAll('td');
-      if (cells.length < 5) return;
 
-      // 판정: 4번째 셀의 .verdict 클래스로 판별
-      var verdictSpan = cells[3].querySelector('.verdict');
-      var verdictMatch = !filterState.verdict ||
-        (verdictSpan && verdictSpan.classList.contains('verdict-' + filterState.verdict));
+      // 판정 (스냅샷 col 3, CSS 클래스 일치)
+      var verdictMatch = true;
+      if (filterState.verdict && cells.length > 3) {
+        var span = cells[3].querySelector('.verdict');
+        verdictMatch = !!span && span.classList.contains('verdict-' + filterState.verdict);
+      }
 
-      // Stage: 5번째 셀 텍스트 (1~4)
-      var stageMatch = !filterState.stage ||
-        cells[4].textContent.trim() === filterState.stage;
+      // Stage (스냅샷 col 4, 텍스트 일치)
+      var stageMatch = true;
+      if (filterState.stage && cells.length > 4) {
+        stageMatch = cells[4].textContent.trim() === filterState.stage;
+      }
 
-      row.style.display = (verdictMatch && stageMatch) ? '' : 'none';
+      // 시장 (워치리스트 col 2, 텍스트 일치)
+      var marketMatch = true;
+      if (filterState.market && cells.length === 3) {
+        marketMatch = cells[2].textContent.trim() === filterState.market;
+      }
+
+      row.style.display = (verdictMatch && stageMatch && marketMatch) ? '' : 'none';
     });
   }
 
@@ -37,7 +46,7 @@ document$.subscribe(function () {
         b.classList.toggle('active', b === btn);
       });
 
-      applySnapFilters();
+      applyFilters();
     });
   });
 });
