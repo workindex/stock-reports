@@ -3,18 +3,21 @@
 특정 시점의 **판정 기록**(최신순). 판정 어휘 — **매수후보**(Stage 2 + TT 8/8) · **매수관찰**(Stage 2 + TT 6~7) · **매수불가**(사유: 과열·시장국면·하락국면·천장권·기준미달).
 
 <div class="snap-filters">
-<span class="sf-label">판정</span>
-<button class="sf active" data-f="verdict" data-v="">전체</button>
-<button class="sf" data-f="verdict" data-v="cand">매수후보</button>
-<button class="sf" data-f="verdict" data-v="watch">매수관찰</button>
-<button class="sf" data-f="verdict" data-v="nobuy">매수불가</button>
-<span class="sf-sep">│</span>
-<span class="sf-label">Stage</span>
-<button class="sf active" data-f="stage" data-v="">전체</button>
-<button class="sf" data-f="stage" data-v="1">1</button>
-<button class="sf" data-f="stage" data-v="2">2</button>
-<button class="sf" data-f="stage" data-v="3">3</button>
-<button class="sf" data-f="stage" data-v="4">4</button>
+<label class="sf-label" for="sf-verdict">판정</label>
+<select class="sf-select" id="sf-verdict" data-f="verdict">
+<option value="">전체</option>
+<option value="cand">매수후보</option>
+<option value="watch">매수관찰</option>
+<option value="nobuy">매수불가</option>
+</select>
+<label class="sf-label" for="sf-stage">Stage</label>
+<select class="sf-select" id="sf-stage" data-f="stage">
+<option value="">전체</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+</select>
 </div>
 
 | 종목 | 기업명 | 분석일 | 판정 | Stage | TT |

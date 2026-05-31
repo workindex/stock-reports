@@ -37,15 +37,9 @@ document$.subscribe(function () {
     });
   }
 
-  document.querySelectorAll('.sf').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var field = btn.dataset.f;
-      filterState[field] = btn.dataset.v;
-
-      document.querySelectorAll('.sf[data-f="' + field + '"]').forEach(function (b) {
-        b.classList.toggle('active', b === btn);
-      });
-
+  document.querySelectorAll('.sf-select').forEach(function (sel) {
+    sel.addEventListener('change', function () {
+      filterState[sel.dataset.f] = sel.value;
       applyFilters();
     });
   });

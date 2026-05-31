@@ -3,11 +3,13 @@
 모니터링 대상 종목. 30분 폴링으로 상태 변화 시 [알림](../alerts/index.md)이 발송됩니다.
 
 <div class="snap-filters">
-<span class="sf-label">시장</span>
-<button class="sf active" data-f="market" data-v="">전체</button>
-<button class="sf" data-f="market" data-v="KRX">KRX</button>
-<button class="sf" data-f="market" data-v="NASDAQ">NASDAQ</button>
-<button class="sf" data-f="market" data-v="NYSE">NYSE</button>
+<label class="sf-label" for="sf-market">시장</label>
+<select class="sf-select" id="sf-market" data-f="market">
+<option value="">전체</option>
+<option value="KRX">KRX</option>
+<option value="NASDAQ">NASDAQ</option>
+<option value="NYSE">NYSE</option>
+</select>
 </div>
 
 | 종목 | 기업명 | 시장 |
