@@ -20,11 +20,11 @@ Weinstein 스테이지 · Minervini Trend Template · Turtle ATR 3레이어 프�
 
 | 종목 | 기업명 | 분석일 | 판정 | Stage | TT |
 |------|--------|--------|------|-------|----|
-| 009150 | 삼성전기 | 2026-05-31 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(과열)</span> | 2 | 8/8 |
-| 329180 | HD현대중공업 | 2026-05-31 | <span class="verdict verdict-watch">매수관찰</span> | 2 | 7/8 |
-| APLD | Applied Digital | 2026-05-31 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(과열)</span> | 2 | 8/8 |
-| AVGO | Broadcom | 2026-05-31 | <span class="verdict verdict-watch">매수관찰</span> | 2 | 7/8 |
-| BE | Bloom Energy | 2026-05-31 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(과열)</span> | 2 | 8/8 |
+| [**009150**](snapshots/009150-2026-05-31.md) | [삼성전기](snapshots/009150-2026-05-31.md) | 2026-05-31 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(과열)</span> | 2 | 8/8 |
+| [**329180**](snapshots/329180-2026-05-31.md) | [HD현대중공업](snapshots/329180-2026-05-31.md) | 2026-05-31 | <span class="verdict verdict-watch">매수관찰</span> | 2 | 7/8 |
+| [**APLD**](snapshots/APLD-2026-05-31.md) | [Applied Digital](snapshots/APLD-2026-05-31.md) | 2026-05-31 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(과열)</span> | 2 | 8/8 |
+| [**AVGO**](snapshots/AVGO-2026-05-31.md) | [Broadcom](snapshots/AVGO-2026-05-31.md) | 2026-05-31 | <span class="verdict verdict-watch">매수관찰</span> | 2 | 7/8 |
+| [**BE**](snapshots/BE-2026-05-31.md) | [Bloom Energy](snapshots/BE-2026-05-31.md) | 2026-05-31 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(과열)</span> | 2 | 8/8 |
 
 [→ 전체 스냅샷](snapshots/index.md)
 

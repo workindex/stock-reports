@@ -167,8 +167,9 @@ def _dashboard(entries, snaps, alerts, names) -> str:
             "|------|--------|--------|------|-------|----|",
         ]
         for s in snaps[:5]:
+            name = names.get(s['ticker'], '')
             lines.append(
-                f"| {s['ticker']} | {names.get(s['ticker'], '')} | {s['created']} | {_verdict_cell(s['verdict'], s['reason'])} "
+                f"| [**{s['ticker']}**](snapshots/{s['fname']}) | [{name}](snapshots/{s['fname']}) | {s['created']} | {_verdict_cell(s['verdict'], s['reason'])} "
                 f"| {s['stage']} | {s['tt']}/8 |"
             )
         lines += ["", "[→ 전체 스냅샷](snapshots/index.md)", ""]
@@ -182,11 +183,11 @@ def _watchlist_index(entries) -> str:
         "",
         "모니터링 대상 종목. 30분 폴링으로 상태 변화 시 [알림](../alerts/index.md)이 발송됩니다.",
         "",
-        "| 종목 | 기업명 | 시장 | 상세 |",
-        "|------|--------|------|------|",
+        "| 종목 | 기업명 | 시장 |",
+        "|------|--------|------|",
     ]
     for ticker, market, name, fname in sorted(entries):
-        lines.append(f"| **{ticker}** | {name} | {market} | [{fname}]({fname}) |")
+        lines.append(f"| [**{ticker}**]({fname}) | [{name}]({fname}) | {market} |")
     return "\n".join(lines) + "\n"
 
 
@@ -198,13 +199,14 @@ def _snapshots_index(snaps, names) -> str:
         "**매수후보**(Stage 2 + TT 8/8) · **매수관찰**(Stage 2 + TT 6~7) · "
         "**매수불가**(사유: 과열·시장국면·하락국면·천장권·기준미달).",
         "",
-        "| 종목 | 기업명 | 분석일 | 판정 | Stage | TT | 상세 |",
-        "|------|--------|--------|------|-------|----|----|",
+        "| 종목 | 기업명 | 분석일 | 판정 | Stage | TT |",
+        "|------|--------|--------|------|-------|----|",
     ]
     for s in snaps:
+        name = names.get(s['ticker'], '')
         lines.append(
-            f"| {s['ticker']} | {names.get(s['ticker'], '')} | {s['created']} | {_verdict_cell(s['verdict'], s['reason'])} "
-            f"| {s['stage']} | {s['tt']}/8 | [{s['fname']}]({s['fname']}) |"
+            f"| [{s['ticker']}]({s['fname']}) | [{name}]({s['fname']}) | {s['created']} | {_verdict_cell(s['verdict'], s['reason'])} "
+            f"| {s['stage']} | {s['tt']}/8 |"
         )
     return "\n".join(lines) + "\n"
 
@@ -223,9 +225,9 @@ def _alerts_index(alerts, names) -> str:
             "    관찰 종목이 매수·매도·손절 조건을 충족하면 이곳에 자동으로 기록됩니다.",
         ]
         return "\n".join(lines) + "\n"
-    lines += ["| 발생일 | 종목 | 기업명 | 유형 | 상세 |", "|--------|------|--------|------|------|"]
+    lines += ["| 발생일 | 종목 | 기업명 | 유형 |", "|--------|------|--------|------|"]
     for a in alerts:
-        lines.append(f"| {a['created']} | {a['ticker']} | {names.get(a['ticker'], '')} | {a['alert']} | [{a['fname']}]({a['fname']}) |")
+        lines.append(f"| {a['created']} | [{a['ticker']}]({a['fname']}) | [{names.get(a['ticker'], '')}]({a['fname']}) | {a['alert']} |")
     return "\n".join(lines) + "\n"
 
 
