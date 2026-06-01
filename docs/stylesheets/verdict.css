@@ -58,3 +58,87 @@ table th[role="columnheader"]:not([data-sort-method="none"]) {
 .sf-select:focus {
   border-color: var(--md-primary-fg-color);
 }
+
+/* 페이지당 행 수 버튼 */
+.sf-per-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-left: auto;
+}
+
+.pg-per {
+  padding: 0.18rem 0.5rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.3rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.pg-per:hover,
+.pg-per-active {
+  background: var(--md-primary-fg-color);
+  color: #fff;
+  border-color: var(--md-primary-fg-color);
+}
+
+/* 페이지네이션 컨트롤 바 */
+.pg-ctrl {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.5rem 0 0.75rem;
+}
+
+.pg-info {
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.pg-pages {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.pg-btn {
+  padding: 0.18rem 0.55rem;
+  min-width: 2rem;
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.3rem;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  line-height: 1.4;
+}
+
+.pg-btn:hover:not(:disabled) {
+  border-color: var(--md-primary-fg-color);
+  color: var(--md-primary-fg-color);
+}
+
+.pg-btn.pg-active {
+  background: var(--md-primary-fg-color);
+  color: #fff;
+  border-color: var(--md-primary-fg-color);
+  font-weight: 700;
+}
+
+.pg-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.pg-ellipsis {
+  padding: 0 0.25rem;
+  color: var(--md-default-fg-color--light);
+  font-size: 0.85rem;
+  user-select: none;
+}
