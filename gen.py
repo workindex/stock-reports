@@ -203,6 +203,7 @@ def _dashboard(entries, snaps, alerts, names) -> str:
         f"- 📋 **관찰 종목** {len(entries)}개 — [목록 보기](watchlist/index.md)",
         f"- 📊 **분석 스냅샷** {len(snaps)}건 — [최신순 보기](snapshots/index.md)",
         f"- 🔔 **알림** {len(alerts)}건 — [타임라인 보기](alerts/index.md)",
+        "- 😨 **시장 공포 지수** — [지수 현황](fear-index.md)",
         "",
         "> 관찰 종목은 *무엇을 추적하는가*, 스냅샷은 *특정 시점의 판정 기록*, "
         "알림은 *임계선을 넘은 순간의 이벤트*입니다. (자세한 구분: 분석 스냅샷의 판정 어휘 참고)",
@@ -353,7 +354,7 @@ def _fear_index_page() -> str:
         if entry is None:
             return f"| {label} | N/A | — | — | — | — |"
         change = entry.get("change", 0.0)
-        sign = "+" if change >= 0 else ""
+        sign = "+" if change > 0 else ""
         return (
             f"| {label} | {entry.get('value', 'N/A')} "
             f"| {sign}{change} "
