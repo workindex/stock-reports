@@ -203,7 +203,7 @@ def _dashboard(entries, snaps, alerts, names) -> str:
         f"- 📋 **관찰 종목** {len(entries)}개 — [목록 보기](watchlist/index.md)",
         f"- 📊 **분석 스냅샷** {len(snaps)}건 — [최신순 보기](snapshots/index.md)",
         f"- 🔔 **알림** {len(alerts)}건 — [타임라인 보기](alerts/index.md)",
-        "- 😨 **시장 공포 지수** — [지수 현황](fear-index.md)",
+        "- 📊 **대시보드** (섹터 히트맵·공포 지수) — [보기](fear-index.md)",
         "",
         "> 관찰 종목은 *무엇을 추적하는가*, 스냅샷은 *특정 시점의 판정 기록*, "
         "알림은 *임계선을 넘은 순간의 이벤트*입니다. (자세한 구분: 분석 스냅샷의 판정 어휘 참고)",
@@ -334,13 +334,44 @@ _REGIME_ENTRY = {
 }
 
 
+_TV_HEATMAP = """\
+## 섹터 히트맵 (S&P 500)
+
+<div class="tradingview-widget-container" style="height:520px;margin-bottom:1rem;">
+<div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+<script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+{
+  "exchanges": [],
+  "dataSource": "SPX500",
+  "grouping": "sector",
+  "blockSize": "market_cap_basic",
+  "blockColor": "change",
+  "locale": "ko",
+  "colorTheme": "dark",
+  "hasTopBar": true,
+  "isDataSetEnabled": true,
+  "isZoomEnabled": true,
+  "hasSymbolTooltip": true,
+  "isMonoSize": false,
+  "width": "100%",
+  "height": 500
+}
+</script>
+</div>
+
+> 출처: TradingView · 실시간 데이터 (페이지 로드 시점 기준)
+"""
+
+
 def _fear_index_page() -> str:
     """data/fear_index.json → fear-index.md 마크다운."""
     if not FEAR_INDEX_JSON.exists():
         return (
-            "# 시장 공포 지수\n\n"
-            '!!! info "아직 데이터가 없습니다"\n'
-            "    `python monitor.py --scan` 을 실행하면 이 페이지가 채워집니다.\n"
+            "# 대시보드\n\n"
+            + _TV_HEATMAP
+            + "\n"
+            '!!! info "공포 지수 데이터 없음"\n'
+            "    `python monitor.py --scan` 을 실행하면 아래 공포 지수가 채워집니다.\n"
         )
 
     data = json.loads(FEAR_INDEX_JSON.read_text(encoding="utf-8"))
@@ -364,13 +395,15 @@ def _fear_index_page() -> str:
         )
 
     lines = [
-        "# 시장 공포 지수",
+        "# 대시보드",
+        "",
+        _TV_HEATMAP,
         "",
         DISCLAIMER,
         "",
-        f"> 수집: {updated} · `python monitor.py --scan` 실행 시 갱신",
+        "## 공포 지수",
         "",
-        "## 지수 현황",
+        f"> 수집: {updated} · `python monitor.py --scan` 실행 시 갱신",
         "",
         "| 지수 | 현재값 | 전일比 | 등급 | 시장 국면 | 신규 진입 |",
         "|------|--------|--------|------|---------|---------|",

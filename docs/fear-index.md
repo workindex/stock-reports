@@ -1,4 +1,31 @@
-# 시장 공포 지수
+# 대시보드
+
+## 섹터 히트맵 (S&P 500)
+
+<div class="tradingview-widget-container" style="height:520px;margin-bottom:1rem;">
+<div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+<script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+{
+  "exchanges": [],
+  "dataSource": "SPX500",
+  "grouping": "sector",
+  "blockSize": "market_cap_basic",
+  "blockColor": "change",
+  "locale": "ko",
+  "colorTheme": "dark",
+  "hasTopBar": true,
+  "isDataSetEnabled": true,
+  "isZoomEnabled": true,
+  "hasSymbolTooltip": true,
+  "isMonoSize": false,
+  "width": "100%",
+  "height": 500
+}
+</script>
+</div>
+
+> 출처: TradingView · 실시간 데이터 (페이지 로드 시점 기준)
+
 
 !!! warning "투자 유의 / Disclaimer"
     이 사이트는 기술적 분석 프레임워크(Weinstein·Minervini·Turtle)의 **판정 결과를 기록**한 것으로,
@@ -6,14 +33,14 @@
     수치는 분석 시점의 yfinance 데이터 기준이며 지연·오류가 있을 수 있습니다.
 
 
-> 수집: 2026-06-01 09:39 UTC · `python monitor.py --scan` 실행 시 갱신
+## 공포 지수
 
-## 지수 현황
+> 수집: 2026-06-01 09:46 UTC · `python monitor.py --scan` 실행 시 갱신
 
 | 지수 | 현재값 | 전일比 | 등급 | 시장 국면 | 신규 진입 |
 |------|--------|--------|------|---------|---------|
-| VIX (미국 S&P500) | 15.84 | +0.52 | ⚪ 중립 | 강한 상승 | ✅ 신규 진입 허용 |
-| VKOSPI (한국 KOSPI) | N/A | — | — | — | — |
+| VIX (미국 S&P500) | 18.4 | -1.1 | ⚪ 중립 | N/A | — |
+| VKOSPI (한국 KOSPI) | 18.4 | -1.1 | ⚪ 중립 | N/A | — |
 
 ## 등급 기준
 
