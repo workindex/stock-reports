@@ -142,3 +142,14 @@ table th[role="columnheader"]:not([data-sort-method="none"]) {
   font-size: 0.85rem;
   user-select: none;
 }
+
+/* TradingView 히트맵: 콘텐츠 영역 전체 너비 사용 */
+.tradingview-widget-container {
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+.tradingview-widget-container__widget {
+  width: 100% !important;
+  min-width: 0;
+}

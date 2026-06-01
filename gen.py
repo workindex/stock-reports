@@ -367,6 +367,7 @@ def _fear_index_page() -> str:
     """data/fear_index.json → fear-index.md 마크다운."""
     if not FEAR_INDEX_JSON.exists():
         return (
+            "---\nhide:\n  - toc\n---\n\n"
             "# 대시보드\n\n"
             + _TV_HEATMAP
             + "\n"
@@ -395,6 +396,11 @@ def _fear_index_page() -> str:
         )
 
     lines = [
+        "---",
+        "hide:",
+        "  - toc",
+        "---",
+        "",
         "# 대시보드",
         "",
         _TV_HEATMAP,
