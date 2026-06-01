@@ -143,11 +143,6 @@ table th[role="columnheader"]:not([data-sort-method="none"]) {
   user-select: none;
 }
 
-/* 본문 너비 전체 사용 — 우측 여백 제거 */
-.md-main .md-grid {
-  max-width: initial;
-}
-
 /* TradingView 히트맵: 콘텐츠 영역 전체 너비 사용 */
 .tradingview-widget-container {
   width: 100% !important;
