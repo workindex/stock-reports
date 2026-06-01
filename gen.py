@@ -381,6 +381,7 @@ def _fear_index_page() -> str:
     vkospi = data.get("vkospi")
     us_r   = data.get("us_regime", "UNKNOWN")
     kr_r   = data.get("kr_regime", "UNKNOWN")
+    cnn_fg = data.get("cnn_fear_greed")
 
     def _row(label: str, entry, regime: str) -> str:
         if entry is None:
@@ -395,6 +396,44 @@ def _fear_index_page() -> str:
             f"| {_REGIME_ENTRY.get(regime, '—')} |"
         )
 
+    def _cnn_section(fg: dict) -> list[str]:
+        if not fg:
+            return []
+        score   = fg.get("score", 0)
+        prev    = fg.get("prev_score", score)
+        change  = fg.get("change", 0.0)
+        sign    = "+" if change > 0 else ""
+        emoji   = fg.get("rating_emoji", "⚪")
+        rating  = fg.get("rating_ko", "—")
+        bar_len = int(score / 5)   # 0~100 → 0~20칸
+        bar     = "█" * bar_len + "░" * (20 - bar_len)
+
+        rows = [
+            "## CNN Fear & Greed Index",
+            "",
+            f"> 수집: {updated} · 출처: [CNN Markets](https://edition.cnn.com/markets/fear-and-greed)",
+            "",
+            f"| 점수 | 전일比 | 등급 |",
+            f"|------|--------|------|",
+            f"| **{score}** / 100 | {sign}{change} | {emoji} **{rating}** |",
+            "",
+            f"`{bar}` {score:.0f}",
+            "",
+            "### 구성 지표 (7개)",
+            "",
+            "| 지표 | 점수 | 등급 |",
+            "|------|------|------|",
+        ]
+        for comp in fg.get("components", []):
+            s = comp.get("score")
+            s_str = f"{s:.1f}" if s is not None else "—"
+            rows.append(
+                f"| {comp['label']} | {s_str} "
+                f"| {comp['rating_emoji']} {comp['rating_ko']} |"
+            )
+        rows.append("")
+        return rows
+
     lines = [
         "---",
         "hide:",
@@ -407,7 +446,8 @@ def _fear_index_page() -> str:
         "",
         DISCLAIMER,
         "",
-        "## 공포 지수",
+        *_cnn_section(cnn_fg),
+        "## VIX / VKOSPI",
         "",
         f"> 수집: {updated} · `python monitor.py --scan` 실행 시 갱신",
         "",
