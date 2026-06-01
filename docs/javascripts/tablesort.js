@@ -5,6 +5,10 @@ document$.subscribe(function () {
     new Tablesort(table);
   });
 
+  // 페이지네이션은 .snap-filters가 있는 페이지(관찰 종목·스냅샷 인덱스)에만 적용
+  var filterBar = document.querySelector('.snap-filters');
+  if (!filterBar) return;
+
   var table = document.querySelector('article table');
   if (!table) return;
 
@@ -95,7 +99,6 @@ document$.subscribe(function () {
   }
 
   // ── 페이지당 행 수 버튼 필터바에 삽입 ────────────────────────────────
-  var filterBar = document.querySelector('.snap-filters');
   if (filterBar) {
     var perWrap = document.createElement('span');
     perWrap.className = 'sf-per-wrap';

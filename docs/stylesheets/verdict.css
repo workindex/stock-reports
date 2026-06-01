@@ -143,7 +143,18 @@ table th[role="columnheader"]:not([data-sort-method="none"]) {
   user-select: none;
 }
 
-/* 모든 테이블 콘텐츠 너비 꽉 채우기 */
+/* 테이블 래퍼까지 포함해서 콘텐츠 너비 꽉 채우기 */
+.md-typeset__scrollwrap {
+  width: 100%;
+  margin: 1em 0;
+}
+
+.md-typeset__table {
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+
 .md-typeset table {
   width: 100%;
   display: table;
