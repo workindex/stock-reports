@@ -352,11 +352,12 @@ def _fear_index_page() -> str:
     def _row(label: str, entry, regime: str) -> str:
         if entry is None:
             return f"| {label} | N/A | — | — | — | — |"
-        sign = "+" if entry["change"] >= 0 else ""
+        change = entry.get("change", 0.0)
+        sign = "+" if change >= 0 else ""
         return (
-            f"| {label} | {entry['value']} "
-            f"| {sign}{entry['change']} "
-            f"| {entry['grade_emoji']} {entry['grade']} "
+            f"| {label} | {entry.get('value', 'N/A')} "
+            f"| {sign}{change} "
+            f"| {entry.get('grade_emoji', '')} {entry.get('grade', 'N/A')} "
             f"| {_REGIME_KO.get(regime, regime)} "
             f"| {_REGIME_ENTRY.get(regime, '—')} |"
         )
