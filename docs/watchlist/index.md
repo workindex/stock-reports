@@ -30,5 +30,6 @@
 | [**IREN**](IREN-iren.md) | [IREN Limited](IREN-iren.md) | NASDAQ |
 | [**META**](META.md) | [META](META.md) | NASDAQ |
 | [**NVDA**](NVDA-nvidia.md) | [NVIDIA](NVDA-nvidia.md) | NASDAQ |
+| [**PLTR**](PLTR-palantir.md) | [Palantir](PLTR-palantir.md) | NYSE |
 | [**SOFI**](SOFI-sofi-technologies.md) | [SoFi Technologies](SOFI-sofi-technologies.md) | NASDAQ |
 | [**VST**](VST-vistra.md) | [Vistra Corp](VST-vistra.md) | NYSE |

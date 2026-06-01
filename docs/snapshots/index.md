@@ -38,5 +38,6 @@
 | [IREN](IREN-2026-06-01.md) | [IREN Limited](IREN-2026-06-01.md) | 2026-06-01 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(기준미달)</span> | 1 | 8/8 |
 | [META](META-2026-06-01.md) | [META](META-2026-06-01.md) | 2026-06-01 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(하락국면)</span> | 4 | 2/8 |
 | [NVDA](NVDA-2026-06-01.md) | [NVIDIA](NVDA-2026-06-01.md) | 2026-06-01 | <span class="verdict verdict-watch">매수관찰</span> | 2 | 7/8 |
+| [PLTR](PLTR-2026-06-01.md) | [Palantir](PLTR-2026-06-01.md) | 2026-06-01 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(하락국면)</span> | 4 | 3/8 |
 | [SOFI](SOFI-2026-06-01.md) | [SoFi Technologies](SOFI-2026-06-01.md) | 2026-06-01 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(하락국면)</span> | 4 | 2/8 |
 | [VST](VST-2026-06-01.md) | [Vistra Corp](VST-2026-06-01.md) | 2026-06-01 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(하락국면)</span> | 4 | 1/8 |
