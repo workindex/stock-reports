@@ -405,8 +405,6 @@ def _fear_index_page() -> str:
         sign    = "+" if change > 0 else ""
         emoji   = fg.get("rating_emoji", "⚪")
         rating  = fg.get("rating_ko", "—")
-        bar_len = int(score / 5)   # 0~100 → 0~20칸
-        bar     = "█" * bar_len + "░" * (20 - bar_len)
 
         rows = [
             "## CNN Fear & Greed Index",
@@ -416,8 +414,6 @@ def _fear_index_page() -> str:
             f"| 점수 | 전일比 | 등급 |",
             f"|------|--------|------|",
             f"| **{score}** / 100 | {sign}{change} | {emoji} **{rating}** |",
-            "",
-            f"`{bar}` {score:.0f}",
             "",
             "### 구성 지표 (7개)",
             "",
