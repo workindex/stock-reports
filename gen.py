@@ -18,6 +18,7 @@
 """
 from __future__ import annotations
 
+import json
 import re
 import shutil
 from datetime import date
@@ -30,6 +31,7 @@ OUT       = ROOT / "docs"
 OUT_WL    = OUT / "watchlist"
 OUT_SNAP  = OUT / "snapshots"
 OUT_ALERT = OUT / "alerts"
+FEAR_INDEX_JSON = ROOT.parent / "data" / "fear_index.json"
 
 DISCLAIMER = """\
 !!! warning "투자 유의 / Disclaimer"
@@ -312,6 +314,95 @@ def _alerts_index(alerts, names) -> str:
     return "\n".join(lines) + "\n"
 
 
+_REGIME_KO = {
+    "STRONG_UPTREND":   "강한 상승",
+    "UPTREND":          "상승",
+    "RANGING":          "횡보",
+    "DOWNTREND":        "하락",
+    "STRONG_DOWNTREND": "강한 하락",
+    "UNKNOWN":          "N/A",
+}
+
+_REGIME_ENTRY = {
+    "STRONG_UPTREND":   "✅ 신규 진입 허용",
+    "UPTREND":          "✅ 신규 진입 허용",
+    "RANGING":          "⚠️ 신규 진입 자제",
+    "DOWNTREND":        "🚫 신규 진입 금지",
+    "STRONG_DOWNTREND": "🚫 신규 진입 금지",
+    "UNKNOWN":          "—",
+}
+
+
+def _fear_index_page() -> str:
+    """data/fear_index.json → fear-index.md 마크다운."""
+    if not FEAR_INDEX_JSON.exists():
+        return (
+            "# 시장 공포 지수\n\n"
+            '!!! info "아직 데이터가 없습니다"\n'
+            "    `python monitor.py --scan` 을 실행하면 이 페이지가 채워집니다.\n"
+        )
+
+    data = json.loads(FEAR_INDEX_JSON.read_text(encoding="utf-8"))
+    updated = data.get("updated_at", "")
+    vix    = data.get("vix")
+    vkospi = data.get("vkospi")
+    us_r   = data.get("us_regime", "UNKNOWN")
+    kr_r   = data.get("kr_regime", "UNKNOWN")
+
+    def _row(label: str, entry, regime: str) -> str:
+        if entry is None:
+            return f"| {label} | N/A | — | — | — | — |"
+        sign = "+" if entry["change"] >= 0 else ""
+        return (
+            f"| {label} | {entry['value']} "
+            f"| {sign}{entry['change']} "
+            f"| {entry['grade_emoji']} {entry['grade']} "
+            f"| {_REGIME_KO.get(regime, regime)} "
+            f"| {_REGIME_ENTRY.get(regime, '—')} |"
+        )
+
+    lines = [
+        "# 시장 공포 지수",
+        "",
+        DISCLAIMER,
+        "",
+        f"> 수집: {updated} · `python monitor.py --scan` 실행 시 갱신",
+        "",
+        "## 지수 현황",
+        "",
+        "| 지수 | 현재값 | 전일比 | 등급 | 시장 국면 | 신규 진입 |",
+        "|------|--------|--------|------|---------|---------|",
+        _row("VIX (미국 S&P500)", vix, us_r),
+        _row("VKOSPI (한국 KOSPI)", vkospi, kr_r),
+        "",
+        "## 등급 기준",
+        "",
+        "| 등급 | VIX | VKOSPI | 의미 |",
+        "|------|-----|--------|------|",
+        "| 🔴 극공포 | > 40 | > 35 | 패닉 매도 구간, 저점 매수 기회일 수 있음 |",
+        "| 🟠 공포   | 30–40 | 25–35 | 시장 불안 고조, 변동성 확대 |",
+        "| 🟡 주의   | 20–30 | 20–25 | 불확실성 존재, 선별적 접근 |",
+        "| ⚪ 중립   | 15–20 | 15–20 | 안정적 흐름, 정상 변동성 |",
+        "| 🟢 탐욕   | < 15  | < 15  | 과열 주의, 변동성 낮음 |",
+        "",
+        "## 시장 국면 해석",
+        "",
+        "| 국면 | 한국어 | 신규 진입 |",
+        "|------|--------|---------|",
+        "| STRONG_UPTREND | 강한 상승 | ✅ 허용 |",
+        "| UPTREND | 상승 | ✅ 허용 |",
+        "| RANGING | 횡보 | ⚠️ 자제 |",
+        "| DOWNTREND | 하락 | 🚫 금지 |",
+        "| STRONG_DOWNTREND | 강한 하락 | 🚫 금지 |",
+        "",
+        "> 시장 국면은 S&P500 / KOSPI의 50·150·200일 MA 정렬 기반으로 판정합니다.",
+        "",
+        "---",
+        f"_생성: {date.today()} · 프레임워크 자동 판정_",
+    ]
+    return "\n".join(lines) + "\n"
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
 
@@ -322,6 +413,7 @@ def main():
     names   = {ticker: name for ticker, _market, name, _fname in entries}
 
     (OUT / "index.md").write_text(_dashboard(entries, latest, alerts, names), encoding="utf-8")
+    (OUT / "fear-index.md").write_text(_fear_index_page(), encoding="utf-8")
     (OUT_WL / "index.md").write_text(_watchlist_index(entries), encoding="utf-8")
     (OUT_SNAP / "index.md").write_text(_snapshots_index(latest, names), encoding="utf-8")
     (OUT_ALERT / "index.md").write_text(_alerts_index(alerts, names), encoding="utf-8")
