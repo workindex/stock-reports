@@ -21,7 +21,7 @@ Weinstein 스테이지 · Minervini Trend Template · Turtle ATR 3레이어 프�
 
 | 종목 | 기업명 | 분석일 | 판정 | Stage | TT |
 |------|--------|--------|------|-------|----|
-| [**BE**](snapshots/BE-2026-06-02.md) | [Bloom Energy](snapshots/BE-2026-06-02.md) | 2026-06-02 | <span class="verdict verdict-cand">매수후보</span> | 2 | 8/8 |
+| [**BE**](snapshots/BE-2026-06-03.md) | [Bloom Energy](snapshots/BE-2026-06-03.md) | 2026-06-03 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(과열)</span> | 2 | 8/8 |
 | [**009150**](snapshots/009150-2026-06-01.md) | [삼성전기](snapshots/009150-2026-06-01.md) | 2026-06-01 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(과열)</span> | 2 | 8/8 |
 | [**329180**](snapshots/329180-2026-06-01.md) | [HD현대중공업](snapshots/329180-2026-06-01.md) | 2026-06-01 | <span class="verdict verdict-watch">매수관찰</span> | 2 | 7/8 |
 | [**APLD**](snapshots/APLD-2026-06-01.md) | [Applied Digital](snapshots/APLD-2026-06-01.md) | 2026-06-01 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(과열)</span> | 2 | 8/8 |
@@ -60,4 +60,4 @@ Weinstein 스테이지 · Minervini Trend Template · Turtle ATR 3레이어 프�
     **8/8**: 매수후보 조건 충족 · **6~7/8**: 매수관찰 · **5/8 이하**: 기준미달
 
 ---
-_생성: 2026-06-02 · 프레임워크 자동 판정_
+_생성: 2026-06-03 · 프레임워크 자동 판정_
