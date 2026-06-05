@@ -568,7 +568,11 @@ def _fear_index_page() -> str:
 
     def _row(label: str, entry, regime: str) -> str:
         if entry is None:
-            return f"| {label} | N/A | — | — | — | — |"
+            return (
+                f"| {label} | — | — | — "
+                f"| {_REGIME_KO.get(regime, regime)} "
+                f"| {_REGIME_ENTRY.get(regime, '—')} |"
+            )
         change = entry.get("change", 0.0)
         sign = "+" if change > 0 else ""
         return (
@@ -624,24 +628,24 @@ def _fear_index_page() -> str:
         DISCLAIMER,
         "",
         *_cnn_section(cnn_fg),
-        "## VIX / VKOSPI",
+        "## VIX",
         "",
         f"> 수집: {updated} · `python monitor.py --scan` 실행 시 갱신",
         "",
         "| 지수 | 현재값 | 전일比 | 등급 | 시장 국면 | 신규 진입 |",
         "|------|--------|--------|------|---------|---------|",
         _row("VIX (미국 S&P500)", vix, us_r),
-        _row("VKOSPI (한국 KOSPI)", vkospi, kr_r),
+        _row("KOSPI (한국 코스피)", None, kr_r),
         "",
         "## 등급 기준",
         "",
-        "| 등급 | VIX | VKOSPI | 의미 |",
-        "|------|-----|--------|------|",
-        "| 🔴 극공포 | > 40 | > 35 | 패닉 매도 구간, 저점 매수 기회일 수 있음 |",
-        "| 🟠 공포   | 30–40 | 25–35 | 시장 불안 고조, 변동성 확대 |",
-        "| 🟡 주의   | 20–30 | 20–25 | 불확실성 존재, 선별적 접근 |",
-        "| ⚪ 중립   | 15–20 | 15–20 | 안정적 흐름, 정상 변동성 |",
-        "| 🟢 탐욕   | < 15  | < 15  | 과열 주의, 변동성 낮음 |",
+        "| 등급 | VIX | 의미 |",
+        "|------|-----|------|",
+        "| 🔴 극공포 | > 40 | 패닉 매도 구간, 저점 매수 기회일 수 있음 |",
+        "| 🟠 공포   | 30–40 | 시장 불안 고조, 변동성 확대 |",
+        "| 🟡 주의   | 20–30 | 불확실성 존재, 선별적 접근 |",
+        "| ⚪ 중립   | 15–20 | 안정적 흐름, 정상 변동성 |",
+        "| 🟢 탐욕   | < 15  | 과열 주의, 변동성 낮음 |",
         "",
         "## 시장 국면 해석",
         "",
