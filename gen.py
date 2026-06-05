@@ -364,13 +364,32 @@ _TV_HEATMAP = """\
 """
 
 
+_SIGNAL_EMOJI = {"매집": "🟢", "분산": "🔴", "중립": "⚪"}
+
+
 def _sector_rank_table(title: str, ranking: list) -> list[str]:
-    """[[섹터명, score], ...] → 순위 표 마크다운 줄. 비어 있으면 안내문."""
+    """섹터 신호 리스트 → 순위 표 마크다운 줄. 비어 있으면 안내문.
+
+    ranking: [{name, rs, accum, dist, signal, vol_share}, ...] (dict 형식)
+    """
     if not ranking:
         return [f"### {title}", "", "_데이터 없음_", ""]
-    rows = [f"### {title}", "", "| 순위 | 섹터 | RS 스코어 |", "|---|---|---|"]
-    for i, (name, score) in enumerate(ranking, start=1):
-        rows.append(f"| {i} | {name} | {score:+.2f} |")
+    rows = [
+        f"### {title}", "",
+        "| 순위 | 섹터 | RS | 신호 | 매집일 | 분산일 | 거래대금 비중 |",
+        "|---|---|---|---|---|---|---|",
+    ]
+    for i, entry in enumerate(ranking, start=1):
+        name  = entry.get("name", "?")
+        rs    = entry.get("rs", 0)
+        sig   = entry.get("signal", "중립")
+        accum = entry.get("accum", 0)
+        dist  = entry.get("dist", 0)
+        share = entry.get("vol_share", 0.0)
+        emoji = _SIGNAL_EMOJI.get(sig, "⚪")
+        rows.append(
+            f"| {i} | {name} | {rs:+.2f} | {emoji} {sig} | {accum} | {dist} | {share:.1f}% |"
+        )
     rows.append("")
     return rows
 
@@ -381,21 +400,21 @@ def _sector_flow_section(data: "dict | None") -> list[str]:
     data: sector_strength.json 파싱 결과 또는 None.
     """
     lines = [
-        "## 섹터 자금 흐름 (RS 순위)",
+        "## 섹터 자금 흐름",
         "",
     ]
     if not data or (not data.get("us") and not data.get("kr")):
         lines += [
-            '!!! info "섹터 RS 데이터 없음"',
-            "    `python monitor.py --scan` 을 실행하면 섹터별 상대강도 순위가 채워집니다.",
+            '!!! info "섹터 데이터 없음"',
+            "    `python monitor.py --scan` 을 실행하면 섹터별 상대강도·수급 신호가 채워집니다.",
             "",
         ]
         return lines
 
     updated = data.get("updated_at", "")
     lines += [
-        f"> **상대강도(RS)가 높은 섹터 = 자금이 흘러드는 섹터**의 프록시. "
-        f"수집: {updated} · `--scan` 시 갱신",
+        f"> **RS**: 상대강도 순위 · **신호**: 최근 20일 매집/분산(가격방향×거래량) · "
+        f"**거래대금 비중**: 섹터 쏠림 게이지. 수집: {updated} · `--scan` 시 갱신",
         ">",
         "> 한·미는 통화·데이터 소스가 달라 **별도 순위**입니다. 두 시장 점수를 직접 비교하지 마세요.",
         "",
