@@ -33,6 +33,7 @@ OUT_SNAP  = OUT / "snapshots"
 OUT_ALERT = OUT / "alerts"
 FEAR_INDEX_JSON = ROOT.parent / "data" / "fear_index.json"
 SECTOR_JSON = ROOT.parent / "data" / "sector_strength.json"
+TRADE_REPORT_JSON = ROOT.parent / "data" / "trade_report.json"
 
 DISCLAIMER = """\
 !!! warning "투자 유의 / Disclaimer"
@@ -470,6 +471,78 @@ def _theme_flow_section(data: "dict | None") -> list[str]:
     return lines
 
 
+def _trade_report_section(data: "dict | None") -> list[str]:
+    """수출입 동향 보도자료 → 대시보드 섹션 마크다운."""
+    lines = ["## 수출입 동향 (산업통상자원부)", ""]
+    if not data:
+        lines += [
+            '!!! info "수출입 동향 데이터 없음"',
+            "    보도자료 PDF를 업로드 후 `python monitor.py --trade-report <파일경로>` 를 실행하면 자동 갱신됩니다.",
+            "",
+        ]
+        return lines
+
+    period   = data.get("period", "?")
+    updated  = data.get("updated_at", "")
+    exp      = data.get("exports_total", {})
+    imp      = data.get("imports_total", {})
+    bal      = data.get("trade_balance", 0)
+    products = data.get("by_product", [])
+    highs    = data.get("highlights", [])
+
+    def _sign(v): return "+" if v > 0 else ""
+
+    exp_yoy = exp.get("yoy", 0)
+    imp_yoy = imp.get("yoy", 0)
+
+    lines += [
+        f"> **{period}** · 수집: {updated} · 출처: 산업통상자원부",
+        "",
+        "### 총괄",
+        "",
+        "| 항목 | 금액 | 전년동월비 |",
+        "|------|------|-----------|",
+        f"| 수출 | **{exp.get('value','?')}억달러** | {_sign(exp_yoy)}{exp_yoy:.1f}% |",
+        f"| 수입 | {imp.get('value','?')}억달러 | {_sign(imp_yoy)}{imp_yoy:.1f}% |",
+        f"| 무역수지 | {_sign(bal)}{bal:.0f}억달러 | — |",
+        "",
+    ]
+
+    if products:
+        lines += [
+            "### 품목별 수출",
+            "",
+            "| 품목 | 전년동월비 | 비고 |",
+            "|------|-----------|------|",
+        ]
+        for p in products:
+            yoy = p.get("yoy", 0)
+            emoji = "🟢" if yoy > 5 else ("🔴" if yoy < -5 else "⚪")
+            note = p.get("note", "")
+            lines.append(
+                f"| {p.get('name','?')} | {emoji} {_sign(yoy)}{yoy:.1f}% | {note} |"
+            )
+        lines.append("")
+
+    if highs:
+        lines += ["### 핵심 분석", ""]
+        for h in highs:
+            lines.append(f"- {h}")
+        lines.append("")
+
+    return lines
+
+
+def _load_trade_report() -> "dict | None":
+    """data/trade_report.json 로드. 없거나 오류면 None."""
+    if not TRADE_REPORT_JSON.exists():
+        return None
+    try:
+        return json.loads(TRADE_REPORT_JSON.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+
+
 def _load_sector_flow() -> "dict | None":
     """data/sector_strength.json 로드. 없거나 오류면 None."""
     if not SECTOR_JSON.exists():
@@ -483,6 +556,7 @@ def _load_sector_flow() -> "dict | None":
 def _fear_index_page() -> str:
     """data/fear_index.json → fear-index.md 마크다운."""
     sector = _load_sector_flow()
+    trade  = _load_trade_report()
 
     if not FEAR_INDEX_JSON.exists():
         return (
@@ -492,6 +566,8 @@ def _fear_index_page() -> str:
             + "\n".join(_sector_flow_section(sector))
             + "\n"
             + "\n".join(_theme_flow_section(sector))
+            + "\n"
+            + "\n".join(_trade_report_section(trade))
             + "\n"
             '!!! info "공포 지수 데이터 없음"\n'
             "    `python monitor.py --scan` 을 실행하면 아래 공포 지수가 채워집니다.\n"
@@ -559,6 +635,7 @@ def _fear_index_page() -> str:
         "",
         *_sector_flow_section(sector),
         *_theme_flow_section(sector),
+        *_trade_report_section(trade),
         DISCLAIMER,
         "",
         *_cnn_section(cnn_fg),

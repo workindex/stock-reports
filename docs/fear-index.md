@@ -92,6 +92,11 @@
 | 2 | 전력 | +7.35 | 🔴 분산 | 3 | 5 |
 | 3 | 피지컬AI | +4.59 | 🔴 분산 | 3 | 5 |
 
+## 수출입 동향 (산업통상자원부)
+
+!!! info "수출입 동향 데이터 없음"
+    보도자료 PDF를 업로드 후 `python monitor.py --trade-report <파일경로>` 를 실행하면 자동 갱신됩니다.
+
 !!! warning "투자 유의 / Disclaimer"
     이 사이트는 기술적 분석 프레임워크(Weinstein·Minervini·Turtle)의 **판정 결과를 기록**한 것으로,
     **투자 권유나 매매 추천이 아닙니다.** 모든 투자 책임은 투자자 본인에게 있습니다.
@@ -100,7 +105,7 @@
 
 ## CNN Fear & Greed Index
 
-> 수집: 2026-06-05 02:08 UTC · 출처: [CNN Markets](https://edition.cnn.com/markets/fear-and-greed)
+> 수집: 2026-06-05 02:24 UTC · 출처: [CNN Markets](https://edition.cnn.com/markets/fear-and-greed)
 
 | 점수 | 전일比 | 등급 |
 |------|--------|------|
@@ -120,7 +125,7 @@
 
 ## VIX / VKOSPI
 
-> 수집: 2026-06-05 02:08 UTC · `python monitor.py --scan` 실행 시 갱신
+> 수집: 2026-06-05 02:24 UTC · `python monitor.py --scan` 실행 시 갱신
 
 | 지수 | 현재값 | 전일比 | 등급 | 시장 국면 | 신규 진입 |
 |------|--------|--------|------|---------|---------|
