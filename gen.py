@@ -424,6 +424,52 @@ def _sector_flow_section(data: "dict | None") -> list[str]:
     return lines
 
 
+def _theme_rank_table(title: str, ranking: list) -> list[str]:
+    """테마 신호 리스트 → 표 마크다운 (vol_share 없음)."""
+    if not ranking:
+        return [f"### {title}", "", "_데이터 없음_", ""]
+    rows = [
+        f"### {title}", "",
+        "| 순위 | 테마 | RS | 신호 | 매집일 | 분산일 |",
+        "|---|---|---|---|---|---|",
+    ]
+    for i, entry in enumerate(ranking, start=1):
+        name  = entry.get("name", "?")
+        rs    = entry.get("rs", 0)
+        sig   = entry.get("signal", "중립")
+        accum = entry.get("accum", 0)
+        dist  = entry.get("dist", 0)
+        emoji = _SIGNAL_EMOJI.get(sig, "⚪")
+        rows.append(f"| {i} | {name} | {rs:+.2f} | {emoji} {sig} | {accum} | {dist} |")
+    rows.append("")
+    return rows
+
+
+def _theme_flow_section(data: "dict | None") -> list[str]:
+    """테마 바스켓 자금 흐름 섹션 마크다운 줄 생성."""
+    lines = ["## 테마별 자금 흐름 (로테이션)", ""]
+    if not data or (not data.get("theme_us") and not data.get("theme_kr")):
+        lines += [
+            '!!! info "테마 데이터 없음"',
+            "    `python monitor.py --scan` 을 실행하면 GPU·전력·기판 등 테마 신호가 채워집니다.",
+            "",
+        ]
+        return lines
+
+    updated = data.get("updated_at", "")
+    lines += [
+        f"> GPU→전력→반도체→피지컬AI→기판 로테이션 추적. "
+        f"RS+신호로 현재 자금이 어느 테마에 집중되는지 판독. 수집: {updated}",
+        ">",
+        "> **US**: SMH(GPU/반도체)·IRBO(AI인프라)·BOTZ(피지컬AI) ETF + 전력/DataCenter 바스켓",
+        "> **KR**: 전력(4종)·기판(5종)·피지컬AI(3종) 균등가중 바스켓",
+        "",
+        *_theme_rank_table("미국 테마", data.get("theme_us") or []),
+        *_theme_rank_table("한국 테마", data.get("theme_kr") or []),
+    ]
+    return lines
+
+
 def _load_sector_flow() -> "dict | None":
     """data/sector_strength.json 로드. 없거나 오류면 None."""
     if not SECTOR_JSON.exists():
@@ -444,6 +490,8 @@ def _fear_index_page() -> str:
             + _TV_HEATMAP
             + "\n"
             + "\n".join(_sector_flow_section(sector))
+            + "\n"
+            + "\n".join(_theme_flow_section(sector))
             + "\n"
             '!!! info "공포 지수 데이터 없음"\n'
             "    `python monitor.py --scan` 을 실행하면 아래 공포 지수가 채워집니다.\n"
@@ -510,6 +558,7 @@ def _fear_index_page() -> str:
         _TV_HEATMAP,
         "",
         *_sector_flow_section(sector),
+        *_theme_flow_section(sector),
         DISCLAIMER,
         "",
         *_cnn_section(cnn_fg),
