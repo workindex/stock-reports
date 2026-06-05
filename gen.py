@@ -32,6 +32,7 @@ OUT_WL    = OUT / "watchlist"
 OUT_SNAP  = OUT / "snapshots"
 OUT_ALERT = OUT / "alerts"
 FEAR_INDEX_JSON = ROOT.parent / "data" / "fear_index.json"
+SECTOR_JSON = ROOT.parent / "data" / "sector_strength.json"
 
 DISCLAIMER = """\
 !!! warning "투자 유의 / Disclaimer"
@@ -363,12 +364,67 @@ _TV_HEATMAP = """\
 """
 
 
+def _sector_rank_table(title: str, ranking: list) -> list[str]:
+    """[[섹터명, score], ...] → 순위 표 마크다운 줄. 비어 있으면 안내문."""
+    if not ranking:
+        return [f"### {title}", "", "_데이터 없음_", ""]
+    rows = [f"### {title}", "", "| 순위 | 섹터 | RS 스코어 |", "|---|---|---|"]
+    for i, (name, score) in enumerate(ranking, start=1):
+        rows.append(f"| {i} | {name} | {score:+.2f} |")
+    rows.append("")
+    return rows
+
+
+def _sector_flow_section(data: "dict | None") -> list[str]:
+    """섹터 자금 흐름(RS 순위) 대시보드 섹션 마크다운 줄 생성.
+
+    data: sector_strength.json 파싱 결과 또는 None.
+    """
+    lines = [
+        "## 섹터 자금 흐름 (RS 순위)",
+        "",
+    ]
+    if not data or (not data.get("us") and not data.get("kr")):
+        lines += [
+            '!!! info "섹터 RS 데이터 없음"',
+            "    `python monitor.py --scan` 을 실행하면 섹터별 상대강도 순위가 채워집니다.",
+            "",
+        ]
+        return lines
+
+    updated = data.get("updated_at", "")
+    lines += [
+        f"> **상대강도(RS)가 높은 섹터 = 자금이 흘러드는 섹터**의 프록시. "
+        f"수집: {updated} · `--scan` 시 갱신",
+        ">",
+        "> 한·미는 통화·데이터 소스가 달라 **별도 순위**입니다. 두 시장 점수를 직접 비교하지 마세요.",
+        "",
+        *_sector_rank_table("미국 (S&P 500 섹터 ETF)", data.get("us") or []),
+        *_sector_rank_table("한국 (KODEX/TIGER 섹터 ETF)", data.get("kr") or []),
+    ]
+    return lines
+
+
+def _load_sector_flow() -> "dict | None":
+    """data/sector_strength.json 로드. 없거나 오류면 None."""
+    if not SECTOR_JSON.exists():
+        return None
+    try:
+        return json.loads(SECTOR_JSON.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+
+
 def _fear_index_page() -> str:
     """data/fear_index.json → fear-index.md 마크다운."""
+    sector = _load_sector_flow()
+
     if not FEAR_INDEX_JSON.exists():
         return (
             "# 대시보드\n\n"
             + _TV_HEATMAP
+            + "\n"
+            + "\n".join(_sector_flow_section(sector))
             + "\n"
             '!!! info "공포 지수 데이터 없음"\n'
             "    `python monitor.py --scan` 을 실행하면 아래 공포 지수가 채워집니다.\n"
@@ -434,6 +490,7 @@ def _fear_index_page() -> str:
         "",
         _TV_HEATMAP,
         "",
+        *_sector_flow_section(sector),
         DISCLAIMER,
         "",
         *_cnn_section(cnn_fg),
