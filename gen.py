@@ -5,7 +5,7 @@
   ../docs/watchlist/snapshots/*.md  분석 스냅샷
 
 출력(이 저장소 docs/):
-  index.md            홈 대시보드 (요약 + 면책)
+  index.md            홈 포털 (바로 가기 + 용어 설명)
   watchlist/index.md  관찰 종목 목록  + 종목 상세 페이지 복사본
   snapshots/index.md  분석 스냅샷 목록 + 스냅샷 상세 페이지 복사본
   alerts/index.md     알림 타임라인 (이벤트 기록)
@@ -198,33 +198,14 @@ def _dashboard(entries, snaps, alerts, names) -> str:
         "",
         "Weinstein 스테이지 · Minervini Trend Template · Turtle ATR 3레이어 프레임워크 기반 종목 분석.",
         "",
-        DISCLAIMER,
-        "",
-        "## 한눈에 보기",
+        "## 바로 가기",
         "",
         f"- 📋 **관찰 종목** {len(entries)}개 — [목록 보기](watchlist/index.md)",
         f"- 📊 **분석 스냅샷** {len(snaps)}건 — [최신순 보기](snapshots/index.md)",
-        f"- 🔔 **알림** {len(alerts)}건 — [타임라인 보기](alerts/index.md)",
-        "- 📊 **대시보드** (섹터 히트맵·공포 지수) — [보기](fear-index.md)",
-        "",
-        "> 관찰 종목은 *무엇을 추적하는가*, 스냅샷은 *특정 시점의 판정 기록*, "
-        "알림은 *임계선을 넘은 순간의 이벤트*입니다. (자세한 구분: 분석 스냅샷의 판정 어휘 참고)",
+        f"- 🔔 **알림** {len(alerts)}건 — [타임라인 보기](alerts/index.md)" if alerts else "- 🔔 **알림** 없음",
+        "- 📊 **시장 현황** — [VIX · Fear&Greed · 섹터 흐름](fear-index.md)",
         "",
     ]
-    if snaps:
-        lines += [
-            "## 최근 분석",
-            "",
-            "| 종목 | 기업명 | 분석일 | 판정 | Stage | TT |",
-            "|------|--------|--------|------|-------|----|",
-        ]
-        for s in snaps[:5]:
-            name = names.get(s['ticker'], '')
-            lines.append(
-                f"| [**{s['ticker']}**](snapshots/{s['fname']}) | [{name}](snapshots/{s['fname']}) | {s['created']} | {_verdict_cell(s['verdict'], s['reason'])} "
-                f"| {s['stage']} | {s['tt']}/8 |"
-            )
-        lines += ["", "[→ 전체 스냅샷](snapshots/index.md)", ""]
     lines += [
         "## 용어 설명",
         "",
@@ -257,7 +238,6 @@ def _dashboard(entries, snaps, alerts, names) -> str:
         "    **8/8**: 매수후보 조건 충족 · **6~7/8**: 매수관찰 · **5/8 이하**: 기준미달",
         "",
     ]
-    lines += ["---", f"_생성: {date.today()} · 프레임워크 자동 판정_"]
     return "\n".join(lines) + "\n"
 
 
@@ -538,14 +518,35 @@ def _load_sector_flow() -> "dict | None":
         return None
 
 
-def _fear_index_page() -> str:
+def _fear_index_page(latest=None, names=None) -> str:
     """data/fear_index.json → fear-index.md 마크다운."""
     sector = _load_sector_flow()
     trade  = _load_trade_report()
+    latest = latest or []
+    names  = names or {}
+
+    def _recent_analysis_section() -> list[str]:
+        if not latest:
+            return []
+        rows = [
+            "## 최근 분석",
+            "",
+            "| 종목 | 기업명 | 분석일 | 판정 | Stage | TT |",
+            "|------|--------|--------|------|-------|----|",
+        ]
+        for s in latest[:5]:
+            name = names.get(s['ticker'], '')
+            rows.append(
+                f"| [**{s['ticker']}**](snapshots/{s['fname']}) | [{name}](snapshots/{s['fname']}) | {s['created']} | {_verdict_cell(s['verdict'], s['reason'])} "
+                f"| {s['stage']} | {s['tt']}/8 |"
+            )
+        rows += ["", "[→ 전체 스냅샷](snapshots/index.md)", ""]
+        return rows
 
     if not FEAR_INDEX_JSON.exists():
         return (
-            "# 대시보드\n\n"
+            "# 시장 현황\n\n"
+            + "\n".join(_recent_analysis_section()) + "\n"
             + _TV_HEATMAP
             + "\n"
             + "\n".join(_sector_flow_section(sector))
@@ -618,8 +619,9 @@ def _fear_index_page() -> str:
         return rows
 
     lines = [
-        "# 대시보드",
+        "# 시장 현황",
         "",
+        *_recent_analysis_section(),
         _TV_HEATMAP,
         "",
         *_sector_flow_section(sector),
@@ -635,32 +637,27 @@ def _fear_index_page() -> str:
         "| 지수 | 현재값 | 전일比 | 등급 | 시장 국면 | 신규 진입 |",
         "|------|--------|--------|------|---------|---------|",
         _row("VIX (미국 S&P500)", vix, us_r),
-        _row("KOSPI (한국 코스피)", None, kr_r),
+        *([_row("KOSPI (한국 코스피)", vkospi, kr_r)] if vkospi is not None else []),
         "",
-        "## 등급 기준",
+        '??? info "📘 VIX 등급 기준"',
+        "    | 등급 | VIX | 의미 |",
+        "    |------|-----|------|",
+        "    | 🔴 극공포 | > 40 | 패닉 매도 구간, 저점 매수 기회일 수 있음 |",
+        "    | 🟠 공포   | 30–40 | 시장 불안 고조, 변동성 확대 |",
+        "    | 🟡 주의   | 20–30 | 불확실성 존재, 선별적 접근 |",
+        "    | ⚪ 중립   | 15–20 | 안정적 흐름, 정상 변동성 |",
+        "    | 🟢 탐욕   | < 15  | 과열 주의, 변동성 낮음 |",
         "",
-        "| 등급 | VIX | 의미 |",
-        "|------|-----|------|",
-        "| 🔴 극공포 | > 40 | 패닉 매도 구간, 저점 매수 기회일 수 있음 |",
-        "| 🟠 공포   | 30–40 | 시장 불안 고조, 변동성 확대 |",
-        "| 🟡 주의   | 20–30 | 불확실성 존재, 선별적 접근 |",
-        "| ⚪ 중립   | 15–20 | 안정적 흐름, 정상 변동성 |",
-        "| 🟢 탐욕   | < 15  | 과열 주의, 변동성 낮음 |",
+        '??? info "📘 시장 국면 해석"',
+        "    S&P500 / KOSPI의 50·150·200일 MA 정렬 기반으로 판정합니다.",
         "",
-        "## 시장 국면 해석",
-        "",
-        "| 국면 | 한국어 | 신규 진입 |",
-        "|------|--------|---------|",
-        "| STRONG_UPTREND | 강한 상승 | ✅ 허용 |",
-        "| UPTREND | 상승 | ✅ 허용 |",
-        "| RANGING | 횡보 | ⚠️ 자제 |",
-        "| DOWNTREND | 하락 | 🚫 금지 |",
-        "| STRONG_DOWNTREND | 강한 하락 | 🚫 금지 |",
-        "",
-        "> 시장 국면은 S&P500 / KOSPI의 50·150·200일 MA 정렬 기반으로 판정합니다.",
-        "",
-        "---",
-        f"_생성: {date.today()} · 프레임워크 자동 판정_",
+        "    | 국면 | 한국어 | 신규 진입 |",
+        "    |------|--------|---------|",
+        "    | STRONG_UPTREND | 강한 상승 | ✅ 허용 |",
+        "    | UPTREND | 상승 | ✅ 허용 |",
+        "    | RANGING | 횡보 | ⚠️ 자제 |",
+        "    | DOWNTREND | 하락 | 🚫 금지 |",
+        "    | STRONG_DOWNTREND | 강한 하락 | 🚫 금지 |",
     ]
     return "\n".join(lines) + "\n"
 
@@ -675,7 +672,7 @@ def main():
     names   = {ticker: name for ticker, _market, name, _fname in entries}
 
     (OUT / "index.md").write_text(_dashboard(entries, latest, alerts, names), encoding="utf-8")
-    (OUT / "fear-index.md").write_text(_fear_index_page(), encoding="utf-8")
+    (OUT / "fear-index.md").write_text(_fear_index_page(latest, names), encoding="utf-8")
     (OUT_WL / "index.md").write_text(_watchlist_index(entries), encoding="utf-8")
     (OUT_SNAP / "index.md").write_text(_snapshots_index(latest, names), encoding="utf-8")
     (OUT_ALERT / "index.md").write_text(_alerts_index(alerts, names), encoding="utf-8")

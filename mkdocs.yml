@@ -49,7 +49,7 @@ extra_javascript:
 
 nav:
   - 홈: index.md
-  - 대시보드: fear-index.md
+  - 시장 현황: fear-index.md
   - 관찰 종목: watchlist/index.md
   - 분석 스냅샷: snapshots/index.md
   - 알림: alerts/index.md
