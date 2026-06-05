@@ -368,29 +368,35 @@ _TV_HEATMAP = """\
 _SIGNAL_EMOJI = {"매집": "🟢", "분산": "🔴", "중립": "⚪"}
 
 
-def _sector_rank_table(title: str, ranking: list) -> list[str]:
-    """섹터 신호 리스트 → 순위 표 마크다운 줄. 비어 있으면 안내문.
+def _rank_table(title: str, ranking: list, entity_label: str,
+                show_vol_share: bool) -> list[str]:
+    """섹터/테마 신호 리스트 → 순위 표 마크다운 줄. 비어 있으면 안내문.
 
-    ranking: [{name, rs, accum, dist, signal, vol_share}, ...] (dict 형식)
+    ranking:        [{name, rs, accum, dist, signal, vol_share?}, ...] dict 리스트
+    entity_label:   표 헤더의 대상 컬럼명 ("섹터" | "테마")
+    show_vol_share: True면 '거래대금 비중' 컬럼 추가 (섹터 전용, 테마는 제외)
     """
     if not ranking:
         return [f"### {title}", "", "_데이터 없음_", ""]
-    rows = [
-        f"### {title}", "",
-        "| 순위 | 섹터 | RS | 신호 | 매집일 | 분산일 | 거래대금 비중 |",
-        "|---|---|---|---|---|---|---|",
-    ]
+
+    header = f"| 순위 | {entity_label} | RS | 신호 | 매집일 | 분산일 |"
+    divider = "|---|---|---|---|---|---|"
+    if show_vol_share:
+        header += " 거래대금 비중 |"
+        divider += "---|"
+
+    rows = [f"### {title}", "", header, divider]
     for i, entry in enumerate(ranking, start=1):
         name  = entry.get("name", "?")
         rs    = entry.get("rs", 0)
         sig   = entry.get("signal", "중립")
         accum = entry.get("accum", 0)
         dist  = entry.get("dist", 0)
-        share = entry.get("vol_share", 0.0)
         emoji = _SIGNAL_EMOJI.get(sig, "⚪")
-        rows.append(
-            f"| {i} | {name} | {rs:+.2f} | {emoji} {sig} | {accum} | {dist} | {share:.1f}% |"
-        )
+        row = f"| {i} | {name} | {rs:+.2f} | {emoji} {sig} | {accum} | {dist} |"
+        if show_vol_share:
+            row += f" {entry.get('vol_share', 0.0):.1f}% |"
+        rows.append(row)
     rows.append("")
     return rows
 
@@ -419,31 +425,10 @@ def _sector_flow_section(data: "dict | None") -> list[str]:
         ">",
         "> 한·미는 통화·데이터 소스가 달라 **별도 순위**입니다. 두 시장 점수를 직접 비교하지 마세요.",
         "",
-        *_sector_rank_table("미국 (S&P 500 섹터 ETF)", data.get("us") or []),
-        *_sector_rank_table("한국 (KODEX/TIGER 섹터 ETF)", data.get("kr") or []),
+        *_rank_table("미국 (S&P 500 섹터 ETF)", data.get("us") or [], "섹터", show_vol_share=True),
+        *_rank_table("한국 (KODEX/TIGER 섹터 ETF)", data.get("kr") or [], "섹터", show_vol_share=True),
     ]
     return lines
-
-
-def _theme_rank_table(title: str, ranking: list) -> list[str]:
-    """테마 신호 리스트 → 표 마크다운 (vol_share 없음)."""
-    if not ranking:
-        return [f"### {title}", "", "_데이터 없음_", ""]
-    rows = [
-        f"### {title}", "",
-        "| 순위 | 테마 | RS | 신호 | 매집일 | 분산일 |",
-        "|---|---|---|---|---|---|",
-    ]
-    for i, entry in enumerate(ranking, start=1):
-        name  = entry.get("name", "?")
-        rs    = entry.get("rs", 0)
-        sig   = entry.get("signal", "중립")
-        accum = entry.get("accum", 0)
-        dist  = entry.get("dist", 0)
-        emoji = _SIGNAL_EMOJI.get(sig, "⚪")
-        rows.append(f"| {i} | {name} | {rs:+.2f} | {emoji} {sig} | {accum} | {dist} |")
-    rows.append("")
-    return rows
 
 
 def _theme_flow_section(data: "dict | None") -> list[str]:
@@ -465,8 +450,8 @@ def _theme_flow_section(data: "dict | None") -> list[str]:
         "> **US**: SMH(GPU/반도체)·IRBO(AI인프라)·BOTZ(피지컬AI) ETF + 전력/DataCenter 바스켓",
         "> **KR**: 전력(4종)·기판(5종)·피지컬AI(3종) 균등가중 바스켓",
         "",
-        *_theme_rank_table("미국 테마", data.get("theme_us") or []),
-        *_theme_rank_table("한국 테마", data.get("theme_kr") or []),
+        *_rank_table("미국 테마", data.get("theme_us") or [], "테마", show_vol_share=False),
+        *_rank_table("한국 테마", data.get("theme_kr") or [], "테마", show_vol_share=False),
     ]
     return lines
 
