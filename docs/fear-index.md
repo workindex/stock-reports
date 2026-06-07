@@ -4,11 +4,11 @@
 
 | 종목 | 기업명 | 분석일 | 판정 | Stage | TT |
 |------|--------|--------|------|-------|----|
-| [**009150**](snapshots/009150-2026-06-06.md) | [삼성전기](snapshots/009150-2026-06-06.md) | 2026-06-06 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(과열)</span> | 2 | 8/8 |
-| [**329180**](snapshots/329180-2026-06-06.md) | [HD현대중공업](snapshots/329180-2026-06-06.md) | 2026-06-06 | <span class="verdict verdict-watch">매수관찰</span> | 2 | 7/8 |
-| [**AVGO**](snapshots/AVGO-2026-06-06.md) | [Broadcom](snapshots/AVGO-2026-06-06.md) | 2026-06-06 | <span class="verdict verdict-watch">매수관찰</span> | 2 | 6/8 |
-| [**BMNR**](snapshots/BMNR-2026-06-06.md) | [Bitmine Immersion](snapshots/BMNR-2026-06-06.md) | 2026-06-06 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(하락국면)</span> | 4 | 1/8 |
-| [**CAT**](snapshots/CAT-2026-06-06.md) | [Caterpillar](snapshots/CAT-2026-06-06.md) | 2026-06-06 | <span class="verdict verdict-cand">매수후보</span> | 2 | 8/8 |
+| [**009150**](snapshots/009150-2026-06-08.md) | [삼성전기](snapshots/009150-2026-06-08.md) | 2026-06-08 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(과열)</span> | 2 | 8/8 |
+| [**329180**](snapshots/329180-2026-06-08.md) | [HD현대중공업](snapshots/329180-2026-06-08.md) | 2026-06-08 | <span class="verdict verdict-watch">매수관찰</span> | 2 | 7/8 |
+| [**AVGO**](snapshots/AVGO-2026-06-08.md) | [Broadcom](snapshots/AVGO-2026-06-08.md) | 2026-06-08 | <span class="verdict verdict-watch">매수관찰</span> | 2 | 6/8 |
+| [**BMNR**](snapshots/BMNR-2026-06-08.md) | [Bitmine Immersion](snapshots/BMNR-2026-06-08.md) | 2026-06-08 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(하락국면)</span> | 4 | 1/8 |
+| [**CAT**](snapshots/CAT-2026-06-08.md) | [Caterpillar](snapshots/CAT-2026-06-08.md) | 2026-06-08 | <span class="verdict verdict-cand">매수후보</span> | 2 | 8/8 |
 
 [→ 전체 스냅샷](snapshots/index.md)
 
@@ -41,7 +41,7 @@
 
 ## 섹터 자금 흐름
 
-> **RS**: 상대강도 순위 · **신호**: 최근 20일 매집/분산(가격방향×거래량) · **거래대금 비중**: 섹터 쏠림 게이지. 수집: 2026-06-05 23:30 UTC · `--scan` 시 갱신
+> **RS**: 상대강도 순위 · **신호**: 최근 20일 매집/분산(가격방향×거래량) · **거래대금 비중**: 섹터 쏠림 게이지. 수집: 2026-06-07 23:31 UTC · `--scan` 시 갱신
 >
 > 한·미는 통화·데이터 소스가 달라 **별도 순위**입니다. 두 시장 점수를 직접 비교하지 마세요.
 
@@ -54,9 +54,9 @@
 | 3 | Industrials | +0.53 | 🔴 분산 | 2 | 6 | 8.7% |
 | 4 | Materials | +0.43 | ⚪ 중립 | 3 | 3 | 5.1% |
 | 5 | Real Estate | +0.30 | 🟢 매집 | 6 | 4 | 1.6% |
-| 6 | Health Care | +0.24 | 🟢 매집 | 6 | 4 | 13.2% |
-| 7 | Financials | +0.07 | 🟢 매집 | 5 | 3 | 13.6% |
-| 8 | Utilities | +0.07 | 🟢 매집 | 5 | 4 | 6.7% |
+| 6 | Health Care | +0.24 | 🟢 매집 | 6 | 4 | 13.1% |
+| 7 | Financials | +0.07 | 🟢 매집 | 5 | 3 | 13.7% |
+| 8 | Utilities | +0.07 | 🟢 매집 | 5 | 4 | 6.6% |
 | 9 | Consumer Staples | +0.06 | 🔴 분산 | 5 | 7 | 8.3% |
 | 10 | Consumer Discretionary | +0.04 | 🔴 분산 | 2 | 6 | 5.6% |
 | 11 | Communication | -0.07 | 🔴 분산 | 5 | 6 | 4.7% |
@@ -82,7 +82,7 @@
 
 ## 테마별 자금 흐름 (로테이션)
 
-> GPU→전력→반도체→피지컬AI→기판 로테이션 추적. RS+신호로 현재 자금이 어느 테마에 집중되는지 판독. 수집: 2026-06-05 23:30 UTC
+> GPU→전력→반도체→피지컬AI→기판 로테이션 추적. RS+신호로 현재 자금이 어느 테마에 집중되는지 판독. 수집: 2026-06-07 23:31 UTC
 >
 > **US**: SMH(GPU/반도체)·IRBO(AI인프라)·BOTZ(피지컬AI) ETF + 전력/DataCenter 바스켓
 > **KR**: 전력(4종)·기판(5종)·피지컬AI(3종) 균등가중 바스켓
@@ -91,8 +91,8 @@
 
 | 순위 | 테마 | RS | 신호 | 매집일 | 분산일 |
 |---|---|---|---|---|---|
-| 1 | AI인프라 | +3.81 | 🟢 매집 | 5 | 2 |
-| 2 | GPU/반도체 | +3.67 | 🔴 분산 | 1 | 7 |
+| 1 | GPU/반도체 | +3.67 | 🔴 분산 | 1 | 7 |
+| 2 | AI인프라 | +2.83 | 🟢 매집 | 5 | 2 |
 | 3 | 전력/DataCenter | +1.17 | 🔴 분산 | 4 | 5 |
 | 4 | 피지컬AI(로보틱스) | +0.48 | ⚪ 중립 | 4 | 4 |
 
@@ -117,7 +117,7 @@
 
 ## CNN Fear & Greed Index
 
-> 수집: 2026-06-05 23:30 UTC · 출처: [CNN Markets](https://edition.cnn.com/markets/fear-and-greed)
+> 수집: 2026-06-07 23:30 UTC · 출처: [CNN Markets](https://edition.cnn.com/markets/fear-and-greed)
 
 | 점수 | 전일比 | 등급 |
 |------|--------|------|
@@ -137,7 +137,7 @@
 
 ## VIX
 
-> 수집: 2026-06-05 23:30 UTC · `python monitor.py --scan` 실행 시 갱신
+> 수집: 2026-06-07 23:30 UTC · `python monitor.py --scan` 실행 시 갱신
 
 | 지수 | 현재값 | 전일比 | 등급 | 시장 국면 | 신규 진입 |
 |------|--------|--------|------|---------|---------|
