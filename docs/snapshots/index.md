@@ -22,8 +22,8 @@
 
 | 종목 | 기업명 | 분석일 | 판정 | Stage | TT |
 |------|--------|--------|------|-------|----|
-| [009150](009150-2026-06-12.md) | [삼성전기](009150-2026-06-12.md) | 2026-06-12 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(과열)</span> | 2 | 8/8 |
-| [329180](329180-2026-06-12.md) | [HD현대중공업](329180-2026-06-12.md) | 2026-06-12 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(변동성과대)</span> | 2 | 7/8 |
+| [009150](009150-2026-06-12.md) | [삼성전기](009150-2026-06-12.md) | 2026-06-12 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 8/8 |
+| [329180](329180-2026-06-12.md) | [HD현대중공업](329180-2026-06-12.md) | 2026-06-12 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 7/8 |
 | [AVGO](AVGO-2026-06-12.md) | [Broadcom](AVGO-2026-06-12.md) | 2026-06-12 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 6/8 |
 | [CAT](CAT-2026-06-12.md) | [Caterpillar](CAT-2026-06-12.md) | 2026-06-12 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 8/8 |
 | [GOOGL](GOOGL-2026-06-12.md) | [Alphabet](GOOGL-2026-06-12.md) | 2026-06-12 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 6/8 |
