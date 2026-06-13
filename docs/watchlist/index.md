@@ -25,3 +25,4 @@
 | [**GOOGL**](GOOGL-alphabet.md) | [Alphabet](GOOGL-alphabet.md) | NASDAQ |
 | [**IREN**](IREN-iren.md) | [IREN Limited](IREN-iren.md) | NASDAQ |
 | [**NVDA**](NVDA-nvidia.md) | [NVIDIA](NVDA-nvidia.md) | NASDAQ |
+| [**USD**](USD-proshares-ultra-semiconductors.md) | [ProShares Ultra Semiconductors (2x)](USD-proshares-ultra-semiconductors.md) | NASDAQ |

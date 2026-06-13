@@ -28,6 +28,7 @@
 | [CAT](CAT-2026-06-13.md) | [Caterpillar](CAT-2026-06-13.md) | 2026-06-13 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 8/8 |
 | [GOOGL](GOOGL-2026-06-13.md) | [Alphabet](GOOGL-2026-06-13.md) | 2026-06-13 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 6/8 |
 | [NVDA](NVDA-2026-06-13.md) | [NVIDIA](NVDA-2026-06-13.md) | 2026-06-13 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 6/8 |
+| [USD](USD-2026-06-13.md) | [ProShares Ultra Semiconductors (2x)](USD-2026-06-13.md) | 2026-06-13 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 8/8 |
 | [APLD](APLD-2026-06-12.md) | [Applied Digital](APLD-2026-06-12.md) | 2026-06-12 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 8/8 |
 | [BE](BE-2026-06-12.md) | [Bloom Energy](BE-2026-06-12.md) | 2026-06-12 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 8/8 |
 | [CIFR](CIFR-2026-06-12.md) | [Cipher Mining](CIFR-2026-06-12.md) | 2026-06-12 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 8/8 |
