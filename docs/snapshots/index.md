@@ -24,15 +24,15 @@
 |------|--------|--------|------|-------|----|
 | [009150](009150-2026-06-15.md) | [삼성전기](009150-2026-06-15.md) | 2026-06-15 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 8/8 |
 | [329180](329180-2026-06-15.md) | [HD현대중공업](329180-2026-06-15.md) | 2026-06-15 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 7/8 |
-| [AVGO](AVGO-2026-06-15.md) | [Broadcom](AVGO-2026-06-15.md) | 2026-06-15 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 6/8 |
-| [CAT](CAT-2026-06-15.md) | [Caterpillar](CAT-2026-06-15.md) | 2026-06-15 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 8/8 |
-| [GOOGL](GOOGL-2026-06-15.md) | [Alphabet](GOOGL-2026-06-15.md) | 2026-06-15 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 6/8 |
-| [NVDA](NVDA-2026-06-15.md) | [NVIDIA](NVDA-2026-06-15.md) | 2026-06-15 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 6/8 |
-| [USD](USD-2026-06-13.md) | [ProShares Ultra Semiconductors (2x)](USD-2026-06-13.md) | 2026-06-13 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 8/8 |
-| [APLD](APLD-2026-06-12.md) | [Applied Digital](APLD-2026-06-12.md) | 2026-06-12 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 8/8 |
-| [BE](BE-2026-06-12.md) | [Bloom Energy](BE-2026-06-12.md) | 2026-06-12 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 8/8 |
-| [CIFR](CIFR-2026-06-12.md) | [Cipher Mining](CIFR-2026-06-12.md) | 2026-06-12 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 8/8 |
-| [CORZ](CORZ-2026-06-12.md) | [Core Scientific](CORZ-2026-06-12.md) | 2026-06-12 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(시장국면)</span> | 2 | 8/8 |
+| [APLD](APLD-2026-06-15.md) | [Applied Digital](APLD-2026-06-15.md) | 2026-06-15 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(변동성과대)</span> | 2 | 8/8 |
+| [AVGO](AVGO-2026-06-15.md) | [Broadcom](AVGO-2026-06-15.md) | 2026-06-15 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(변동성과대)</span> | 2 | 6/8 |
+| [BE](BE-2026-06-15.md) | [Bloom Energy](BE-2026-06-15.md) | 2026-06-15 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(변동성과대)</span> | 2 | 8/8 |
+| [CAT](CAT-2026-06-15.md) | [Caterpillar](CAT-2026-06-15.md) | 2026-06-15 | <span class="verdict verdict-cand">매수후보</span> | 2 | 8/8 |
+| [CIFR](CIFR-2026-06-15.md) | [Cipher Mining](CIFR-2026-06-15.md) | 2026-06-15 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(변동성과대)</span> | 2 | 8/8 |
+| [CORZ](CORZ-2026-06-15.md) | [Core Scientific](CORZ-2026-06-15.md) | 2026-06-15 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(변동성과대)</span> | 2 | 8/8 |
+| [GOOGL](GOOGL-2026-06-15.md) | [Alphabet](GOOGL-2026-06-15.md) | 2026-06-15 | <span class="verdict verdict-watch">매수관찰</span> | 2 | 6/8 |
+| [NVDA](NVDA-2026-06-15.md) | [NVIDIA](NVDA-2026-06-15.md) | 2026-06-15 | <span class="verdict verdict-watch">매수관찰</span> | 2 | 6/8 |
+| [USD](USD-2026-06-15.md) | [ProShares Ultra Semiconductors (2x)](USD-2026-06-15.md) | 2026-06-15 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(변동성과대)</span> | 2 | 8/8 |
 | [IREN](IREN-2026-06-12.md) | [IREN Limited](IREN-2026-06-12.md) | 2026-06-12 | <span class="verdict verdict-nobuy">매수불가</span> <span class="verdict-reason">(기준미달)</span> | 1 | 7/8 |
 | [BMNR](BMNR-2026-06-11.md) | [](BMNR-2026-06-11.md) | 2026-06-11 | <span class="verdict verdict-nobuy">매도관찰</span> | 4 | 1/8 |
 | [CRCL](CRCL-2026-06-11.md) | [](CRCL-2026-06-11.md) | 2026-06-11 | <span class="verdict verdict-nobuy">매도관찰</span> | 4 | 2/8 |
